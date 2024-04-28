@@ -1066,7 +1066,7 @@ Transform:
   - {fileID: 1586392259021556852}
   - {fileID: 5710020912105626183}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: -137.305, z: 0}
 --- !u!195 &5050683878853790422
 NavMeshAgent:
