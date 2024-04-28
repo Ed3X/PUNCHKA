@@ -129,6 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 76756183}
+  - component: {fileID: 76756184}
   m_Layer: 0
   m_Name: Visualizer
   m_TagString: Untagged
@@ -151,6 +152,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &76756184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76756182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3eff9d541374488b3b2bb6dff01ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lsystem: {fileID: 1517404973}
+  roadHelper: {fileID: 1679936991}
+  structureHelper: {fileID: 111087897}
+  roadLength: 8
 --- !u!1 &111087895
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 111087896}
+  - component: {fileID: 111087897}
   m_Layer: 0
   m_Name: StructureHelper
   m_TagString: Untagged
@@ -182,6 +200,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &111087897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111087895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122d4618cfaac3b48a4d765cf5ee11a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingTypes:
+  - prefabs:
+    - {fileID: 3962440082643158057, guid: 5689e4726bc2a8a48bcc36605fba918e, type: 3}
+    sizeRequired: 3
+    quantity: 3
+    quantityAlreadyPlaced: 0
+  - prefabs:
+    - {fileID: 5418577439970722738, guid: ec611ae9f609edc4cad3995c701a4072, type: 3}
+    sizeRequired: 3
+    quantity: 2
+    quantityAlreadyPlaced: 0
+  - prefabs:
+    - {fileID: 2507707691550815495, guid: 59ffc13d9fb598240ac517fe6fb6fd9c, type: 3}
+    - {fileID: 3866452111178995711, guid: 62dd89dfe4948b744ac32fe5d0249467, type: 3}
+    sizeRequired: 1
+    quantity: 5
+    quantityAlreadyPlaced: 0
+  - prefabs:
+    - {fileID: 6611407531028321825, guid: e4e3476b5a3e23a479a803b108d04c9c, type: 3}
+    - {fileID: 6841383266756804668, guid: 32e5c407a77f7744c866fb16abd37898, type: 3}
+    sizeRequired: 1
+    quantity: -1
+    quantityAlreadyPlaced: 0
+  naturePrefabs:
+  - {fileID: 4444817063829182789, guid: 573c753f56bd22b40a79ed4fd9ab8aed, type: 3}
+  - {fileID: 5380805434365418974, guid: d2a45bda926bafc4380d5f071897a5db, type: 3}
+  - {fileID: 6315202082271303812, guid: 2918e207393839d4da9ffe1bb063b87b, type: 3}
+  - {fileID: 522670404799392065, guid: 80475cdfa7e2f1740b6d1390ad3c04e4, type: 3}
+  - {fileID: 2906499288724287655, guid: 81bfe059d50b91d4697432147ebf4d1a, type: 3}
+  randomNaturePlacement: 1
+  randomNaturePlacementThreshold: 0.3
 --- !u!1 &873550140
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,8 +469,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959500131}
+  - component: {fileID: 959500133}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: '!EventSystem'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,6 +492,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &959500133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959500130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
 --- !u!1 &1197046071
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +624,7 @@ GameObject:
   - component: {fileID: 1482277831}
   - component: {fileID: 1482277830}
   - component: {fileID: 1482277829}
+  - component: {fileID: 1482277832}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -606,8 +684,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -628,6 +706,138 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1482277832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482277828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearColorMode: 0
+  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  clearDepth: 1
+  volumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  volumeAnchorOverride: {fileID: 0}
+  antialiasing: 0
+  SMAAQuality: 2
+  dithering: 0
+  stopNaNs: 0
+  taaSharpenStrength: 0.5
+  TAAQuality: 1
+  taaSharpenMode: 0
+  taaRingingReduction: 0
+  taaHistorySharpening: 0.35
+  taaAntiFlicker: 0.5
+  taaMotionVectorRejection: 0
+  taaAntiHistoryRinging: 0
+  taaBaseBlendFactor: 0.875
+  taaJitterScale: 1
+  physicalParameters:
+    m_Iso: 200
+    m_ShutterSpeed: 0.005
+    m_Aperture: 16
+    m_FocusDistance: 10
+    m_BladeCount: 5
+    m_Curvature: {x: 2, y: 11}
+    m_BarrelClipping: 0.25
+    m_Anamorphism: 0
+  flipYMode: 0
+  xrRendering: 1
+  fullscreenPassthrough: 0
+  allowDynamicResolution: 0
+  customRenderingSettings: 0
+  invertFaceCulling: 0
+  probeLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hasPersistentHistory: 0
+  screenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  screenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  allowDeepLearningSuperSampling: 1
+  deepLearningSuperSamplingUseCustomQualitySettings: 0
+  deepLearningSuperSamplingQuality: 0
+  deepLearningSuperSamplingUseCustomAttributes: 0
+  deepLearningSuperSamplingUseOptimalSettings: 1
+  deepLearningSuperSamplingSharpening: 0
+  fsrOverrideSharpness: 0
+  fsrSharpness: 0.92
+  exposureTarget: {fileID: 0}
+  materialMipBias: 0
+  m_RenderingPathCustomFrameSettings:
+    bitDatas:
+      data1: 5770166122053453
+      data2: 13799030890350739480
+    lodBias: 1
+    lodBiasMode: 0
+    lodBiasQualityLevel: 0
+    maximumLODLevel: 0
+    maximumLODLevelMode: 0
+    maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
+    sssCustomDownsampleSteps: 0
+    msaaMode: 1
+    materialQuality: 0
+  renderingPathCustomFrameSettingsOverrideMask:
+    mask:
+      data1: 0
+      data2: 0
+  defaultFrameSettings: 0
+  m_Version: 9
+  m_ObsoleteRenderingPath: 0
+  m_ObsoleteFrameSettings:
+    overrides: 0
+    enableShadow: 0
+    enableContactShadows: 0
+    enableShadowMask: 0
+    enableSSR: 0
+    enableSSAO: 0
+    enableSubsurfaceScattering: 0
+    enableTransmission: 0
+    enableAtmosphericScattering: 0
+    enableVolumetrics: 0
+    enableReprojectionForVolumetrics: 0
+    enableLightLayers: 0
+    enableExposureControl: 1
+    diffuseGlobalDimmer: 0
+    specularGlobalDimmer: 0
+    shaderLitMode: 0
+    enableDepthPrepassWithDeferredRendering: 0
+    enableTransparentPrepass: 0
+    enableMotionVectors: 0
+    enableObjectMotionVectors: 0
+    enableDecals: 0
+    enableRoughRefraction: 0
+    enableTransparentPostpass: 0
+    enableDistortion: 0
+    enablePostprocess: 0
+    enableOpaqueObjects: 0
+    enableTransparentObjects: 0
+    enableRealtimePlanarReflection: 0
+    enableMSAA: 0
+    enableAsyncCompute: 0
+    runLightListAsync: 0
+    runSSRAsync: 0
+    runSSAOAsync: 0
+    runContactShadowsAsync: 0
+    runVolumeVoxelizationAsync: 0
+    lightLoopSettings:
+      overrides: 0
+      enableDeferredTileAndCluster: 0
+      enableComputeLightEvaluation: 0
+      enableComputeLightVariants: 0
+      enableComputeMaterialVariants: 0
+      enableFptlForForwardOpaque: 0
+      enableBigTilePrepass: 0
+      isFptlEnabled: 0
 --- !u!1 &1517404971
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +847,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1517404972}
+  - component: {fileID: 1517404973}
   m_Layer: 0
   m_Name: LSystem
   m_TagString: Untagged
@@ -659,6 +870,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1517404973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517404971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd18866bb32bb0646a914a9ad7e42c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rules:
+  - {fileID: 11400000, guid: 7e76f1c50650dfb4583240ed02c68e35, type: 2}
+  rootSentence: '[F][--F]'
+  iterationLimit: 3
+  randomIgnoreRuleModifier: 1
+  chanceToIgnoreRule: 0.3
 --- !u!1 &1679936989
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1679936990}
+  - component: {fileID: 1679936991}
   m_Layer: 0
   m_Name: RoadHelper
   m_TagString: Untagged
@@ -690,3 +920,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1679936991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679936989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f002e49ddbb7244b0d8fc1df31b1e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadStraight: {fileID: 1902133473773644130, guid: 4cc96138ef8c728428d8abdcc0b6f9b1, type: 3}
+  roadCorner: {fileID: 9167836805613001921, guid: 50e7e7a62a765c34ca6c22f34f0c28e1, type: 3}
+  road3way: {fileID: 5962866701861012061, guid: 315ae3df12eb2cd48be4923c16f3547a, type: 3}
+  road4way: {fileID: 9024991216101018872, guid: 42168f3369da5d741b4848f69149e780, type: 3}
+  roadEnd: {fileID: 1901475907271895716, guid: d293aa27ae6eca54c97ea18b5e7892a0, type: 3}
