@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e1bb8f05fd0d54eb367caabd7bcaa2, type: 3}
+  m_Name: Database_tienda
+  m_EditorClassIdentifier: 
+  objectsData:
+  - <Name>k__BackingField: Botella
+    <ID>k__BackingField: 1
+    <Cost>k__BackingField: 3
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 6507891570327875405, guid: 147ecae5bc5a42a4d9d0a6cd02782407, type: 3}
+    type: 0
+  - <Name>k__BackingField: "Sart\xE9n"
+    <ID>k__BackingField: 2
+    <Cost>k__BackingField: 7
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 7f17d12c9e385a74d8bb8a6573b01b27, type: 3}
+    type: 0
+  - <Name>k__BackingField: Ladrillo
+    <ID>k__BackingField: 3
+    <Cost>k__BackingField: 2
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 98cb3b59b04ab384d94674347eed02c3, type: 3}
+    type: 0
+  - <Name>k__BackingField: Paquete de cigarros
+    <ID>k__BackingField: 4
+    <Cost>k__BackingField: 6
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: b3aa3dedd143e1743a347ef78f545e26, type: 3}
+    type: 1
+  - <Name>k__BackingField: Pastilla de speed
+    <ID>k__BackingField: 5
+    <Cost>k__BackingField: 10
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 908b2d26556092247be6a2b731438737, type: 3}
+    type: 2
