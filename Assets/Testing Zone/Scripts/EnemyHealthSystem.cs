@@ -25,7 +25,7 @@ public class EnemyHealthSystem : MonoBehaviour
 
         animator = GetComponent<Animator>();
         GetComponent<EnemyNavMesh>().enabled = true;
-        GetComponent<NavMeshAgent>().enabled = true;
+        //GetComponent<NavMeshAgent>().enabled = true;
 
         BoxCollider boxCollider = GetComponent<BoxCollider>();
         if (boxCollider != null)
