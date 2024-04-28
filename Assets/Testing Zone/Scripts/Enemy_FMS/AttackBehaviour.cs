@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AttackBehaviour : BaseBehaviour
 {
-    public float attackRange = 1.0f;
+    public float attackRange = 0.5f;
     public float attackCooldown = 1.0f;
     public int Damage = 10;
 

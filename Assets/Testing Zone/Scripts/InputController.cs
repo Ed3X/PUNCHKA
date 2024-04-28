@@ -10,14 +10,16 @@ public class InputController : MonoBehaviour
     InputAction pegarAction;
 
     PlayerCombat playerCombat;
+    PlayerHealthSystem playerHealth;
 
     [SerializeField] float speed = 5f;
     [SerializeField] float gravity = 9.81f; // Gravedad en m/s^2
     [SerializeField] float forceMultiplier = 0.1f; // Multiplicador de fuerza
-    //[SerializeField] float dashDistance = 5f; // Distancia del dash
+    [SerializeField] float dashDistance = 5f; // Distancia del dash
     [SerializeField] float dashCooldown = 1f; // Tiempo de espera para volver a dashear
-    //[SerializeField] float dashDuration = 0.2f; // Espera del dash en segundos
+    [SerializeField] float dashDuration = 0.2f; // Espera del dash en segundos
     [SerializeField] float rotationSpeed = 10f;
+    [SerializeField] float lateralSpeed = 0.1f;
 
     CharacterController characterController;
     Camera mainCamera;
@@ -42,9 +44,10 @@ public class InputController : MonoBehaviour
         mainCamera = Camera.main; // Obtenemos la cámara principal
         moveAction.Enable();
         dashAction.Enable();
-        anim= GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
         playerCombat = GetComponent<PlayerCombat>();
+        playerHealth = GetComponent<PlayerHealthSystem>();
     }
 
     //IEnumerator CooldownRotation()
@@ -58,10 +61,10 @@ public class InputController : MonoBehaviour
         MovePlayer(); // Mueve al personaje en un eje fijo
 
         // Verifica si se ha presionado el botón de dash y realiza el dash si es así
-        //if (dashAction.triggered && !isDashing)
-        //{
-        //    StartCoroutine(Dash());
-        //}
+        if (dashAction.triggered && !isDashing)
+        {
+            StartCoroutine(Dash());
+        }
 
         if (pegarAction.triggered && !isPegando)
         {
@@ -130,7 +133,7 @@ public class InputController : MonoBehaviour
             //Interpola suavemente la rotación actual hacia la rotación objetivo
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-            
+
 
             // Normaliza el vector de movimiento para evitar la velocidad adicional
             moveDirection.Normalize();
@@ -152,36 +155,66 @@ public class InputController : MonoBehaviour
     }
 
 
-    ////IEnumerator Dash()
-    ////{
+    IEnumerator Dash()
+    {
+        if (isDashing)
+        {
+            yield break; // Si ya se está realizando un dash, salir del método
+        }
 
-    ////    if (isDashing) yield break; // Si ya se está realizando un dash o el jugador no está en movimiento, sale del método
+        isDashing = true; // Indica que se está realizando un dash
 
-    ////    isDashing = true; // Indica que se está realizando un dash
+        playerHealth.isInvincible = true;
 
-    ////    // Activar la animación de Esquivar al comenzar el dash
-    ////    anim.SetBool("Esquivar", true);
+        // Activa la animación de dash
+        anim.SetBool("Esquivar", true);
 
-    ////    // Desactivar las acciones de movimiento al comenzar el dash
-    ////    moveAction.Disable();
+        // Almacena la posición inicial del personaje antes del dash
+        Vector3 startPos = transform.position;
+        Vector3 dashDirection = transform.forward; // Dirección del dash es la dirección en la que el personaje está mirando
 
-    ////    if (!isDashing) yield break; // Si ya se está realizando un dash o el jugador no está en movimiento, sale del método
-    ////    // Espera a que termine la animación de Esquivar
-    ////    yield return new WaitUntil(() => !anim.GetCurrentAnimatorStateInfo(0).IsName("Esquivar"));
+        // Interpola suavemente la posición del personaje desde la posición inicial hasta la posición final durante el dash
+        float elapsedTime = 0f;
+        while (elapsedTime < dashDuration)
+        {
+            // Normaliza la dirección del dash para mantener la misma velocidad en cualquier dirección
+            Vector3 finalDirection = (dashDirection * dashDistance);
 
-    ////    // Desactivar la animación de Esquivar al finalizar el dash
-    ////    anim.SetBool("Esquivar", false);
+            // Normaliza la velocidad lateral para evitar movimientos diagonales más rápidos que en línea recta
+            finalDirection = finalDirection.normalized * lateralSpeed;
 
-    ////    // Espera el tiempo de cooldown antes de permitir otro dash
-    ////    yield return new WaitForSeconds(dashCooldown);
+            transform.position += finalDirection * Time.deltaTime;
 
-    ////    isDashing = false;
-    ////}
-    ////public void OnDashAnimationEnd()
-    ////{
-    ////    // Reactivar las acciones de movimiento al finalizar el dash
-    ////    moveAction.Enable();
-    ////}
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Desactiva la animación de dash al finalizar
+        anim.SetBool("Esquivar", false);
+
+        // Espera el tiempo de cooldown antes de permitir otro dash
+        yield return new WaitForSeconds(dashCooldown);
+
+        // Restablece la bandera de dash al finalizar el cooldown
+        isDashing = false;
+
+        playerHealth.isInvincible = false;
+    }
+
+
+
+
+
+
+
+
+
+
+    //public void OnDashAnimationEnd()
+    //{
+    //    // Reactivar las acciones de movimiento al finalizar el dash
+    //    moveAction.Enable();
+    //}
 
 
 

@@ -57,10 +57,11 @@ public class EnemySpawner : MonoBehaviour
     {
         currentEnemies--;
 
-        // Si no se está spawneando y no hay enemigos activos, iniciar el spawneo.
-        if (!isSpawning && currentEnemies <= 0)
+        // Iniciar el spawneo nuevamente si no hay enemigos activos
+        if (currentEnemies <= 0)
         {
             StartSpawning();
         }
     }
+
 }

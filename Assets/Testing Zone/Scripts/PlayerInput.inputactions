@@ -248,7 +248,7 @@
                     "name": "",
                     "id": "53830b30-899a-4084-a3ec-8d9877a82755",
                     "path": "<Keyboard>/space",
-                    "interactions": "MultiTap(tapTime=0.5,pressPoint=0.9)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Dash",

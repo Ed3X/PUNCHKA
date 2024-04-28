@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class EnemyHealthSystem : MonoBehaviour
 {
@@ -19,10 +20,24 @@ public class EnemyHealthSystem : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        myMaterial = GetComponent<Renderer>().material;
-        originalColor = myMaterial.color;
+        //myMaterial = GetComponent<Renderer>().material;
+        //originalColor = myMaterial.color;
 
         animator = GetComponent<Animator>();
+        GetComponent<EnemyNavMesh>().enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
+
+        BoxCollider boxCollider = GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = true;
+        }
+
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = true;
+        }
 
         // Obtener referencia al EnemySpawner usando FindObjectOfType
         EnemySpawner spawner = FindFirstObjectByType<EnemySpawner>();
@@ -64,17 +79,6 @@ public class EnemyHealthSystem : MonoBehaviour
         // Llamar al evento OnEnemyDestroyed
         OnEnemyDestroyed?.Invoke();
 
-        // Desactivar cualquier componente de movimiento o comportamiento
-        // por ejemplo, si tienes un componente de persecución o ataque, desactívalos aquí
-        GetComponent<EnemyNavMesh>().enabled = false;
-
-        // Desactivar IdleBehaviour
-        IdleBehaviour idleBehaviour = animator.GetBehaviour<IdleBehaviour>();
-        if (idleBehaviour != null)
-        {
-            idleBehaviour.enabled = false;
-        }
-
         //GetComponent<ChaseBehaviour>().enabled = false;
 
         // Activar la animación de muerte en el Animator
@@ -98,14 +102,32 @@ public class EnemyHealthSystem : MonoBehaviour
         {
             Debug.LogError("No Lootbag component found on this GameObject.");
         }
+
+        BoxCollider boxCollider = GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = false;
+        }
+
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = false;
+        }
+        // Desactivar cualquier componente de movimiento o comportamiento
+        // por ejemplo, si tienes un componente de persecución o ataque, desactívalos aquí
+        GetComponent<EnemyNavMesh>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+
     }
 
-    private void DestroyRecursive(GameObject obj)
-    {
-        foreach (Transform child in obj.transform)
-        {
-            DestroyRecursive(child.gameObject);
-        }
-        Destroy(obj);
-    }
+    //private void DestroyRecursive(GameObject obj)
+    //{
+    //    foreach (Transform child in obj.transform)
+    //    {
+    //        DestroyRecursive(child.gameObject);
+    //    }
+    //    Destroy(obj);
 }
+
+
