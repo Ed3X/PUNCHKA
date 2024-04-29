@@ -11,9 +11,10 @@ public class PlayerCombat : MonoBehaviour
     public float autoTargetRange = 3f; // Rango de búsqueda de enemigos para autoenfoque
     public float speed = 20f; // Velocidad de movimiento del jugador para autoenfoque
     public float rotationSpeed = 20f;
+    public float visionAngle = 120f;
 
     private Animator anim; // Referencia al Animator
-    private bool isAttacking = false; // Flag para controlar si el jugador está atacando
+    public bool isAttacking = false; // Flag para controlar si el jugador está atacando
     public float attackCooldown = 1f; // Tiempo de espera antes de otro ataque
 
     private void Start()
@@ -84,37 +85,35 @@ public class PlayerCombat : MonoBehaviour
     // Método para buscar el enemigo más cercano dentro del rango de autoenfoque
     private void AutoTargetEnemy()
     {
-        // Definir el cono de visión del jugador
-        float viewAngle = 90f; // Ángulo de visión del jugador en grados
-        float viewDistance = autoTargetRange; // Distancia máxima de visión del jugador
-
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, viewDistance, enemyLayer);
+        // Obtener todos los enemigos dentro del rango de autoenfoque
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, autoTargetRange, enemyLayer);
 
         if (hitColliders.Length > 0)
         {
-            Transform nearestEnemy = FindNearestEnemy(hitColliders);
+            // Encontrar el enemigo más cercano dentro del cono de visión
+            Transform nearestEnemy = FindNearestEnemyInCone(hitColliders);
+
             if (nearestEnemy != null)
             {
-                // Calcular la dirección hacia el enemigo más cercano, pero solo en X y Z
-                Vector3 direction = (nearestEnemy.position - transform.position).normalized;
-                direction.y = 0f; // Establecer la coordenada Y a cero para evitar inclinaciones
+                // Calcular la dirección hacia el enemigo y normalizarla
+                Vector3 directionToEnemy = (nearestEnemy.position - transform.position).normalized;
+                directionToEnemy.y = 0f; // Limitar el movimiento al plano horizontal (ejes X y Z)
 
-                // Verificar si el enemigo está dentro del cono de visión del jugador
-                if (Vector3.Angle(transform.forward, direction) <= viewAngle / 2)
+                // Calcular la rotación hacia el enemigo (solo en los ejes X y Z)
+                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToEnemy.x, 0f, directionToEnemy.z), Vector3.up);
+
+                // Rotar al jugador hacia el enemigo (solo en los ejes X y Z)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                // Verificar si el enemigo está dentro del cono de visión y del rango de alcance
+                if (Vector3.Angle(transform.forward, directionToEnemy) <= visionAngle && Vector3.Distance(transform.position, nearestEnemy.position) <= autoTargetRange)
                 {
-                    // Solo aplicamos movimiento si el jugador está más lejos del enemigo
-                    if (Vector3.Distance(transform.position, nearestEnemy.position) > attackCollider.size.magnitude / 2)
-                    {
-                        // Calcular el desplazamiento hacia el enemigo
-                        Vector3 displacement = direction * Time.deltaTime * speed;
+                    // Calcular la posición objetivo del jugador justo delante del enemigo
+                    Vector3 targetPosition = nearestEnemy.position - directionToEnemy * (attackCollider.size.magnitude / 2 + 0.3f); // Agregar un pequeño offset para mantener la distancia
+                    targetPosition.y = transform.position.y; // Mantener la misma altura del jugador
 
-                        // Aplicar el desplazamiento al jugador
-                        transform.position += displacement;
-                    }
-
-                    // Rotación suave hacia el enemigo
-                    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                    // Mover al jugador hacia la posición objetivo (solo en los ejes X y Z)
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
                 }
             }
         }
@@ -124,27 +123,32 @@ public class PlayerCombat : MonoBehaviour
 
 
 
-
-
-
-    // Método para encontrar el enemigo más cercano entre los colliders
-    private Transform FindNearestEnemy(Collider[] atackCollider)
+    // Método para encontrar el enemigo más cercano dentro del cono de visión
+    private Transform FindNearestEnemyInCone(Collider[] colliders)
     {
         Transform nearestEnemy = null;
         float minDistance = float.MaxValue;
 
-        foreach (Collider col in atackCollider)
+        foreach (Collider col in colliders)
         {
-            float distance = Vector3.Distance(transform.position, col.transform.position);
-            if (distance < minDistance)
+            // Calcular la dirección al enemigo
+            Vector3 directionToEnemy = (col.transform.position - transform.position).normalized;
+
+            // Verificar si el enemigo está dentro del cono de visión
+            if (Vector3.Angle(transform.forward, directionToEnemy) <= visionAngle)
             {
-                minDistance = distance;
-                nearestEnemy = col.transform;
+                float distance = Vector3.Distance(transform.position, col.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestEnemy = col.transform;
+                }
             }
         }
 
         return nearestEnemy;
     }
+
 
     // Método para manejar la detección de colisiones con enemigos
     //private void OnTriggerEnter(Collider attackCollider)

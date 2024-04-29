@@ -58,6 +58,11 @@ public class InputController : MonoBehaviour
     //}
     void Update()
     {
+
+        // Verifica si el jugador está atacando
+        if (playerCombat.isAttacking)
+            return;
+
         MovePlayer(); // Mueve al personaje en un eje fijo
 
         // Verifica si se ha presionado el botón de dash y realiza el dash si es así

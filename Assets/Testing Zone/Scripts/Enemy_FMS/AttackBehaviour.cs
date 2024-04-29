@@ -22,7 +22,7 @@ public class AttackBehaviour : BaseBehaviour
         base.OnStateEnter(animator, stateInfo, layerIndex);
         playerObject = GameObject.FindGameObjectWithTag(playerTag);
     }
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -47,6 +47,14 @@ public class AttackBehaviour : BaseBehaviour
                 AttackPlayer();
                 lastAttackTime = Time.time; // Update last attack time
             }
+        }
+
+        // Apuntar al jugador
+        if (playerObject != null)
+        {
+            Vector3 direction = playerObject.transform.position - animator.transform.position;
+            direction.y = 0; // Esto asegura que el enemigo solo gire en el plano XZ
+            animator.transform.rotation = Quaternion.LookRotation(direction);
         }
     }
 
