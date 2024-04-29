@@ -192,13 +192,14 @@ public class InputController : MonoBehaviour
         // Desactiva la animación de dash al finalizar
         anim.SetBool("Esquivar", false);
 
+        playerHealth.isInvincible = false;
+
         // Espera el tiempo de cooldown antes de permitir otro dash
         yield return new WaitForSeconds(dashCooldown);
 
         // Restablece la bandera de dash al finalizar el cooldown
         isDashing = false;
 
-        playerHealth.isInvincible = false;
     }
 
 
