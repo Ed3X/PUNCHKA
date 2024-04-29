@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -47,21 +48,23 @@ public class PlayerCombat : MonoBehaviour
     // Método para infligir daño al enemigo más cercano
     private void DealDamage()
     {
-        // Obtener todos los colliders en la capa de los enemigos
-        Collider[] enemyColliders = Physics.OverlapBox(attackCollider.bounds.center, attackCollider.bounds.extents, attackCollider.transform.rotation, enemyLayer);
+        // Obtener el primer collider en la capa de enemigos que se superpone con el área de ataque del jugador
+        Collider enemyCollider = Physics.OverlapBox(attackCollider.bounds.center, attackCollider.bounds.extents, attackCollider.transform.rotation, enemyLayer).FirstOrDefault();
 
-        foreach (Collider col in enemyColliders)
+        // Verificar si se encontró un collider de enemigo
+        if (enemyCollider != null)
         {
             // Obtener el componente de salud del enemigo
-            EnemyHealthSystem enemyHealth = col.GetComponent<EnemyHealthSystem>();
+            EnemyHealthSystem enemyHealth = enemyCollider.GetComponent<EnemyHealthSystem>();
 
-            // Infligir daño al enemigo
+            // Infligir daño al enemigo si tiene un componente de salud
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
             }
         }
     }
+
 
 
 
@@ -158,12 +161,12 @@ public class PlayerCombat : MonoBehaviour
     //}
 
     // Dibujar gizmos para visualizar el área de ataque en el editor
-    private void OnDrawGizmosSelected()
-    {
-        if (attackCollider != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
-        }
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    if (attackCollider != null)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawWireCube(attackCollider.bounds.center, attackCollider.bounds.size);
+    //    }
+    //}
 }
