@@ -1876,7 +1876,7 @@ MonoBehaviour:
   groundSphereRadius: 0.1
   drugBar: {fileID: 0}
   Respawn: {fileID: 0}
-  hurtLayout: {fileID: 0}
+  hurt_Layout: {fileID: 0}
 --- !u!81 &129336662
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3973,7 +3973,7 @@ MonoBehaviour:
   groundSphereRadius: 0.5
   drugBar: {fileID: 837265698}
   Respawn: {fileID: 117200019}
-  hurtLayout: {fileID: 975506684}
+  hurt_Layout: {fileID: 975506684}
 --- !u!81 &584171060
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6000,7 +6000,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtLayout: {fileID: 1586958751}
-  hurtVisible: 1
 --- !u!1 &1001819064
 GameObject:
   m_ObjectHideFlags: 0

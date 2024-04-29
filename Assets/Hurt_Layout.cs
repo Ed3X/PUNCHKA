@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Hurt_Layout : MonoBehaviour
 {
     public GameObject hurtLayout;
@@ -16,13 +15,18 @@ public class Hurt_Layout : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H) && hurtCoroutine == null) // Check if H is pressed and no coroutine is running
+        // Removed the Input check as we'll call ShowAndHideHurtUI() from another script
+    }
+
+    public void ShowAndHideHurtUI() // This method is now public
+    {
+        if (hurtCoroutine == null) // Check if no coroutine is running
         {
-            hurtCoroutine = StartCoroutine(ShowAndHideHurtUI()); // Start the coroutine
+            hurtCoroutine = StartCoroutine(InternalShowAndHideHurtUI()); // Start the internal coroutine
         }
     }
 
-    IEnumerator ShowAndHideHurtUI()
+    private IEnumerator InternalShowAndHideHurtUI()
     {
         hurtVisible = true;
         hurtLayout.SetActive(true); // Show the UI immediately

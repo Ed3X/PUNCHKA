@@ -25,6 +25,8 @@ public class PlayerHealthSystem : MonoBehaviour
     public DrugBar drugBar;
     public Transform Respawn;
 
+    public Hurt_Layout hurt_Layout;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -67,7 +69,7 @@ public class PlayerHealthSystem : MonoBehaviour
         if (!isInvincible)
         {
             currentHealth -= damage;
-
+            hurt_Layout.ShowAndHideHurtUI();
         }
 
         if (currentHealth <= 0)
