@@ -30,4 +30,6 @@ public class HealthBar : MonoBehaviour
         barradeVidaDer.fillAmount = normalizedValue;
         barradeVidaIzq.fillAmount = normalizedValue;
     }
+
+    
 }

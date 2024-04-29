@@ -55,6 +55,7 @@ public class PlayerHealthSystem : MonoBehaviour
         if (IsHealing())
         {
             drugBar.drogaActual = 100f;
+            currentHealth = maxHealth;
         }
     }
 
