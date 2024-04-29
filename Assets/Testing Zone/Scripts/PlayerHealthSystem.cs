@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +23,7 @@ public class PlayerHealthSystem : MonoBehaviour
     public float groundSphereRadius = 0.5f;
     public DrugBar drugBar;
     public Transform Respawn;
+    public Hurt_Layout hurtLayout; // Reference to the Hurt_Layout script
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class PlayerHealthSystem : MonoBehaviour
         myMaterial = GetComponent<Renderer>().material;
         originalColor = myMaterial.color;
 
-        healthBar.SetMaxHealth(maxHealth); 
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Update()
@@ -59,7 +59,7 @@ public class PlayerHealthSystem : MonoBehaviour
     private bool IsHealing()
     {
         return Physics.CheckSphere(
-            GroundChecker.position, groundSphereRadius, WhatIsHealing );
+            GroundChecker.position, groundSphereRadius, WhatIsHealing);
     }
 
     public void PlayerTakesDamage(int damage)
@@ -67,6 +67,10 @@ public class PlayerHealthSystem : MonoBehaviour
         if (!isInvincible)
         {
             currentHealth -= damage;
+
+            // Show hurt UI for half a second
+            hurtLayout.hurtVisible = true;
+            StartCoroutine(HideHurtUI());
         }
 
         if (currentHealth <= 0)
@@ -78,7 +82,13 @@ public class PlayerHealthSystem : MonoBehaviour
         {
             StartCoroutine(InvulnerabilityTimer());
         }
-        healthBar.SetHealth(currentHealth); 
+        healthBar.SetHealth(currentHealth);
+    }
+
+    IEnumerator HideHurtUI()
+    {
+        yield return new WaitForSeconds(0.5f); // Wait for half a second
+        hurtLayout.hurtVisible = false; // Hide the UI after the wait
     }
 
     IEnumerator InvulnerabilityTimer()
