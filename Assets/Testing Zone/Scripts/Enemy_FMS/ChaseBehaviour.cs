@@ -35,10 +35,17 @@ public class ChaseBehaviour : BaseBehaviour
 
     private void Move(Transform mySelf)
     {
-        Vector3 PlayerPos = new Vector3(_player.transform.position.x, _player.transform.position.y, _player.transform.position.z);
+        // Obtener la posición del jugador
+        Vector3 playerPosition = _player.transform.position;
 
-        mySelf.transform.LookAt(PlayerPos);
+        // Ignorar el componente Y de la posición del jugador
+        playerPosition.y = mySelf.position.y;
 
+        // Rotar hacia la posición del jugador
+        mySelf.LookAt(playerPosition);
+
+        // Mover hacia adelante en los ejes X y Z
         mySelf.Translate(Vector3.forward * ChaseSpeed * Time.deltaTime, Space.Self);
     }
+
 }
