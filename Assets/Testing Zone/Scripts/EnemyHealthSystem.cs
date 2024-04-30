@@ -17,6 +17,8 @@ public class EnemyHealthSystem : MonoBehaviour
     // Evento para notificar cuando un enemigo es destruido
     public event Action OnEnemyDestroyed;
 
+    private BloodSpawner bloodSpawner;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -49,6 +51,12 @@ public class EnemyHealthSystem : MonoBehaviour
         {
             Debug.LogError("EnemySpawner not found!");
         }
+
+        bloodSpawner = GetComponent<BloodSpawner>();
+        if (bloodSpawner == null)
+        {
+            Debug.LogError("Target: BloodSpawner component not found!");
+        }
     }
 
     private void Update()
@@ -56,7 +64,7 @@ public class EnemyHealthSystem : MonoBehaviour
         animator = GetComponent<Animator>();
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Dead();
+            TakeDamage(20);
         }
     }
 
@@ -68,6 +76,13 @@ public class EnemyHealthSystem : MonoBehaviour
         {
             Debug.Log("matando.");
             Dead();
+        }
+        else
+        {
+            if (bloodSpawner != null)
+            {
+                bloodSpawner.SpawnBloodParticles();
+            }
         }
     }
 
