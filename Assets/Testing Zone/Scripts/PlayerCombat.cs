@@ -7,7 +7,8 @@ public class PlayerCombat : MonoBehaviour
 {
     public int damage = 20; // Daño que inflige el jugador
     public LayerMask enemyLayer; // Capa de los enemigos
-    public BoxCollider attackCollider; // Referencia al BoxCollider que representa el área de ataque
+    public BoxCollider manoIz; // Referencia al BoxCollider que representa el área de ataque
+    public BoxCollider ManoDe; // Referencia al BoxCollider que representa el área de ataque
     public float autoTargetRange = 2f; // Rango de búsqueda de enemigos para autoenfoque
     public float speed = 20f; // Velocidad de movimiento del jugador para autoenfoque
     public float rotationSpeed = 20f;
@@ -35,63 +36,69 @@ public class PlayerCombat : MonoBehaviour
             // Obtener todos los enemigos dentro del rango de autoenfoque
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, autoTargetRange, enemyLayer);
 
-            if (hitColliders.Length > 0)
+            // Encontrar el enemigo más cercano dentro del cono de visión
+            Transform nearestEnemy = FindNearestEnemyInCone(hitColliders);
+
+            //if (isAttacking)
+            //{
+
+            //    // Calcular la dirección del ataque basado en la rotación actual del jugador
+            //    Vector3 attackDirection = transform.forward;
+
+            //    // Mueve al jugador solo en la dirección del ataque y a una velocidad reducida mientras ataca
+            //    float moveSpeedWhileAttacking = attackSpeed; // Define la velocidad de movimiento mientras ataca (la mitad de la velocidad normal)
+
+            //    // Realizar un Raycast en la dirección del movimiento para evitar atravesar obstáculos
+            //    RaycastHit hit;
+            //    if (Physics.Raycast(transform.position, attackDirection, out hit, attackRange))
+            //    {
+            //        // Si el Raycast golpea algo, ajustar la posición del jugador para evitar el obstáculo
+            //        transform.position = hit.point - attackDirection * 0.1f; // Agregar un pequeño desplazamiento para evitar la colisión
+            //    }
+            //    else
+            //    {
+            //        // Si no hay obstáculo, mover al jugador en la dirección del ataque
+            //        transform.position += attackDirection * moveSpeedWhileAttacking * Time.deltaTime;
+            //    }
+            //}
+            if (nearestEnemy != null)
             {
-                // Encontrar el enemigo más cercano dentro del cono de visión
-                Transform nearestEnemy = FindNearestEnemyInCone(hitColliders);
+                Attack();
+                // Calcular la dirección hacia el enemigo y normalizarla
+                Vector3 directionToEnemy = (nearestEnemy.position - transform.position);
+                directionToEnemy.y = 0f; // Limitar el movimiento al plano horizontal (ejes X y Z)
 
-                if (nearestEnemy != null)
+                // Calcular la distancia al enemigo
+                float distanceToEnemy = directionToEnemy.magnitude;
+
+                // Si el jugador está demasiado cerca del enemigo, retrocede lentamente
+                if (distanceToEnemy < maxAttackDistance)
                 {
-                    // Calcular la dirección hacia el enemigo y normalizarla
-                    Vector3 directionToEnemy = (nearestEnemy.position - transform.position);
-                    directionToEnemy.y = 0f; // Limitar el movimiento al plano horizontal (ejes X y Z)
-
-                    // Calcular la distancia al enemigo
-                    float distanceToEnemy = directionToEnemy.magnitude;
-
-                    // Si el jugador está demasiado cerca del enemigo, retrocede lentamente
-                    if (distanceToEnemy < maxAttackDistance)
-                    {
-                        Vector3 moveDirection = -directionToEnemy.normalized;
-                        transform.position += moveDirection * attackSpeed * Time.deltaTime;
-                    }
-                    else
-                    {
-                        // Mover al jugador hacia el enemigo
-                        Vector3 moveDirection = directionToEnemy.normalized;
-                        transform.position += moveDirection * attackSpeed * Time.deltaTime;
-                    }
-
-                    // Calcular la rotación hacia el enemigo (solo en los ejes X y Z)
-                    Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToEnemy.x, 0f, directionToEnemy.z), Vector3.up);
-
-                    // Rotar al jugador hacia el enemigo (solo en los ejes X y Z)
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-                    DealDamage(nearestEnemy.GetComponent<EnemyHealthSystem>());
+                    Vector3 moveDirection = -directionToEnemy.normalized;
+                    transform.position += moveDirection * attackSpeed * Time.deltaTime;
                 }
                 else
                 {
-                    // Calcular la dirección del ataque basado en la rotación actual del jugador
-                    Vector3 attackDirection = transform.forward;
-
-                    // Mueve al jugador solo en la dirección del ataque y a una velocidad reducida mientras ataca
-                    float moveSpeedWhileAttacking = attackSpeed; // Define la velocidad de movimiento mientras ataca (la mitad de la velocidad normal)
-
-                    // Realizar un Raycast en la dirección del movimiento para evitar atravesar obstáculos
-                    RaycastHit hit;
-                    if (Physics.Raycast(transform.position, attackDirection, out hit, attackRange))
-                    {
-                        // Si el Raycast golpea algo, ajustar la posición del jugador para evitar el obstáculo
-                        transform.position = hit.point - attackDirection * 0.1f; // Agregar un pequeño desplazamiento para evitar la colisión
-                    }
-                    else
-                    {
-                        // Si no hay obstáculo, mover al jugador en la dirección del ataque
-                        transform.position += attackDirection * moveSpeedWhileAttacking * Time.deltaTime;
-                    }
+                    // Mover al jugador hacia el enemigo
+                    Vector3 moveDirection = directionToEnemy.normalized;
+                    transform.position += moveDirection * attackSpeed * Time.deltaTime;
                 }
+
+                // Calcular la rotación hacia el enemigo (solo en los ejes X y Z)
+                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToEnemy.x, 0f, directionToEnemy.z), Vector3.up);
+
+                // Rotar al jugador hacia el enemigo (solo en los ejes X y Z)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                if (nearestEnemy != null && enemyLayer == (enemyLayer | (1 << nearestEnemy.gameObject.layer)))
+                {
+                    DealDamage(nearestEnemy.GetComponent<EnemyHealthSystem>());
+                    return;
+                }
+
+
             }
+            isAttacking = false;
         }
     }
 

@@ -58,72 +58,34 @@ public class InputController : MonoBehaviour
     //}
     void Update()
     {
-
         // Verifica si el jugador está atacando
-        if (playerCombat.isAttacking)
-            return;
-
-        MovePlayer(); // Mueve al personaje en un eje fijo
+        if (!playerCombat.isAttacking) // Si no está atacando, permite el movimiento
+        {
+            MovePlayer(); // Mueve al personaje en un eje fijo
+        }
 
         // Verifica si se ha presionado el botón de dash y realiza el dash si es así
-        if (dashAction.triggered && !isDashing)
+        if (dashAction.triggered && !isDashing && !playerCombat.isAttacking)
         {
             StartCoroutine(Dash());
         }
 
-        if (pegarAction.triggered && !isPegando)
+        if (pegarAction.triggered && !isPegando && !playerCombat.isAttacking)
         {
             // Llamar a la función de ataque del PlayerCombat
             playerCombat.Attack();
         }
-
-        // Si el botón izquierdo del mouse está presionado y si el personaje puede rotar
-        //if (Mouse.current.leftButton.isPressed && !isMousePressed && canRotate)
-        //{
-        //isMousePressed = true;
-        //RotatePlayerTowardsMouse(); // Llama a la función para que el personaje mire hacia el ratón
-        //StartCoroutine(CooldownRotation()); // Inicia la corrutina de tiempo de espera
-        //}
-
-        // Restablece la variable isMousePressed cuando se suelta el botón izquierdo del mouse
-        //if (!Mouse.current.leftButton.isPressed && isMousePressed)
-        //{
-        //isMousePressed = false;
-        //}
     }
 
-    //void RotatePlayerTowardsMouse()
-    //{
-    //    // Obtiene la posición del ratón en la pantalla
-    //    Vector3 mousePosition = Mouse.current.position.ReadValue();
-
-    //    // Convierte la posición del ratón de la pantalla a un rayo en el espacio del juego
-    //    Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-    //    Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-    //    float rayLength;
-
-    //    // Si el rayo intersecta el plano del suelo, calcula la longitud del rayo
-    //    if (groundPlane.Raycast(ray, out rayLength))
-    //    {
-    //        // Obtiene el punto de intersección del rayo con el plano
-    //        Vector3 pointToLook = ray.GetPoint(rayLength);
-
-    //        // Calcula la dirección desde el personaje hacia el punto de intersección
-    //        Vector3 lookDirection = pointToLook - transform.position;
-    //        lookDirection.y = 0; // Asegura que el personaje no mire hacia arriba o abajo
-
-    //        // Si la dirección es válida (no es el vector cero)
-    //        if (lookDirection.sqrMagnitude > 0.001f)
-    //        {
-    //            // Rota el personaje hacia el ratón
-    //            Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
-    //            transform.rotation = lookRotation;
-    //        }
-    //    }
-    //}
 
     void MovePlayer()
     {
+        // Verifica si el jugador está atacando
+        if (playerCombat.isAttacking)
+        {
+            // Si el jugador está atacando, no permite el movimiento
+            return;
+        }
         Vector2 inputDirection = moveAction.ReadValue<Vector2>();
         Vector3 moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
 
