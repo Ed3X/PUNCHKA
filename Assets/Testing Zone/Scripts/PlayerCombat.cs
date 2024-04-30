@@ -38,29 +38,6 @@ public class PlayerCombat : MonoBehaviour
 
             // Encontrar el enemigo más cercano dentro del cono de visión
             Transform nearestEnemy = FindNearestEnemyInCone(hitColliders);
-
-            //if (isAttacking)
-            //{
-
-            //    // Calcular la dirección del ataque basado en la rotación actual del jugador
-            //    Vector3 attackDirection = transform.forward;
-
-            //    // Mueve al jugador solo en la dirección del ataque y a una velocidad reducida mientras ataca
-            //    float moveSpeedWhileAttacking = attackSpeed; // Define la velocidad de movimiento mientras ataca (la mitad de la velocidad normal)
-
-            //    // Realizar un Raycast en la dirección del movimiento para evitar atravesar obstáculos
-            //    RaycastHit hit;
-            //    if (Physics.Raycast(transform.position, attackDirection, out hit, attackRange))
-            //    {
-            //        // Si el Raycast golpea algo, ajustar la posición del jugador para evitar el obstáculo
-            //        transform.position = hit.point - attackDirection * 0.1f; // Agregar un pequeño desplazamiento para evitar la colisión
-            //    }
-            //    else
-            //    {
-            //        // Si no hay obstáculo, mover al jugador en la dirección del ataque
-            //        transform.position += attackDirection * moveSpeedWhileAttacking * Time.deltaTime;
-            //    }
-            //}
             if (nearestEnemy != null)
             {
                 Attack();
