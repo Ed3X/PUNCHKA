@@ -2906,7 +2906,7 @@ NavMeshAgent:
   m_Acceleration: 2
   avoidancePriority: 1
   m_AngularSpeed: 0
-  m_StoppingDistance: 3
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -4044,15 +4044,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073af2e8bba456b44b3fa9a680b2fdb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
+  damage: 50
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   attackCollider: {fileID: 772510446}
-  autoTargetRange: 5
+  autoTargetRange: 3
   speed: 50
-  rotationSpeed: 10000
-  visionAngle: 90
+  rotationSpeed: 1000
+  visionAngle: 120
   isAttacking: 0
   attackCooldown: 1
 --- !u!23 &584171066
