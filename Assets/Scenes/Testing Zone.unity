@@ -4050,7 +4050,7 @@ MonoBehaviour:
   rotationSpeed: 1000
   visionAngle: 90
   isAttacking: 0
-  attackCooldown: 1.5
+  attackCooldown: 1
 --- !u!23 &584171066
 MeshRenderer:
   m_ObjectHideFlags: 0

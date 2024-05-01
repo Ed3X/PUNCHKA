@@ -73,16 +73,17 @@ public class PlayerCombat : MonoBehaviour
                     return;
                 }
             }
-            isAttacking = false;
         }
     }
 
-    // Método para detectar y atacar a los enemigos
     public void Attack()
     {
         // Si ya está atacando o está en cooldown, salir del método
         if (isAttacking)
             return;
+
+        // Restablecer el estado de ataque a falso al inicio de un nuevo ataque
+        isAttacking = false;
 
         // Limpiar la lista de enemigos golpeados durante este ataque
         enemiesHitThisAttack.Clear();
