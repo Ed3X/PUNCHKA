@@ -7,8 +7,8 @@ public class PlayerCombat : MonoBehaviour
 {
     public int damage = 20; // Daño que inflige el jugador
     public LayerMask enemyLayer; // Capa de los enemigos
-    public BoxCollider manoIz; // Referencia al BoxCollider que representa el área de ataque
-    public BoxCollider ManoDe; // Referencia al BoxCollider que representa el área de ataque
+    public BoxCollider manoIz; // Referencia al BoxCollider que representa el área de ataque de la mano izquierda
+    public BoxCollider manoDe; // Referencia al BoxCollider que representa el área de ataque de la mano derecha
     public float autoTargetRange = 2f; // Rango de búsqueda de enemigos para autoenfoque
     public float speed = 20f; // Velocidad de movimiento del jugador para autoenfoque
     public float rotationSpeed = 20f;
@@ -72,8 +72,6 @@ public class PlayerCombat : MonoBehaviour
                     DealDamage(nearestEnemy.GetComponent<EnemyHealthSystem>());
                     return;
                 }
-
-
             }
             isAttacking = false;
         }
@@ -141,11 +139,15 @@ public class PlayerCombat : MonoBehaviour
         // Verificar si se encontró un enemigo y si no ha sido golpeado ya durante este ataque
         if (enemyHealth != null && !enemiesHitThisAttack.Contains(enemyHealth))
         {
-            // Agregar el enemigo a la lista de enemigos golpeados durante este ataque
-            enemiesHitThisAttack.Add(enemyHealth);
+            // Verificar si ambos colliders de las manos del jugador están colisionando con el enemigo al mismo tiempo
+            if (manoIz.bounds.Intersects(enemyHealth.GetComponent<Collider>().bounds) || manoDe.bounds.Intersects(enemyHealth.GetComponent<Collider>().bounds))
+            {
+                // Agregar el enemigo a la lista de enemigos golpeados durante este ataque
+                enemiesHitThisAttack.Add(enemyHealth);
 
-            // Infligir daño al enemigo
-            enemyHealth.TakeDamage(damage);
+                // Infligir daño al enemigo
+                enemyHealth.TakeDamage(damage);
+            }
         }
     }
 }
