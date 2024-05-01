@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class EnemyHealthSystem : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class EnemyHealthSystem : MonoBehaviour
     public bool IsDead { get; private set; }
 
     private Animator animator;
-    private BloodSpawner bloodSpawner;
+    public GameObject Sangre;
 
     // Evento para notificar cuando un enemigo es destruido
     public event Action OnEnemyDestroyed;
@@ -17,7 +18,27 @@ public class EnemyHealthSystem : MonoBehaviour
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
-        bloodSpawner = GetComponent<BloodSpawner>();
+        GetComponent<EnemyNavMesh>().enabled = true;
+        GetComponent<NavMeshAgent>().enabled = true;
+
+        BoxCollider boxCollider = GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = true;
+        }
+
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = true;
+        }
+
+        // Obtener referencia al EnemySpawner usando FindObjectOfType
+        EnemySpawner spawner = FindFirstObjectByType<EnemySpawner>();
+        if (spawner != null)
+        {
+            OnEnemyDestroyed += spawner.EnemyDestroyed;
+        }
     }
 
     void Update()
@@ -40,12 +61,30 @@ public class EnemyHealthSystem : MonoBehaviour
         }
         else
         {
-            if (bloodSpawner != null)
+            // Verificar si el Prefab de Sangre está asignado
+            if (Sangre != null)
             {
-                bloodSpawner.SpawnBloodParticles();
+                // Calcular la rotación inversa del enemigo
+                Quaternion reverseRotation = transform.rotation * Quaternion.Euler(0, 180, 0);
+
+                // Instanciar una copia del Prefab de Sangre con la posición y rotación inversa del enemigo
+                GameObject sangreInstance = Instantiate(Sangre, Sangre.transform.position, Sangre.transform.rotation);
+
+                // Desvincular la sangre del padre actual
+                sangreInstance.transform.parent = null;
+
+                // Activar la sangre
+                sangreInstance.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("Sangre Prefab not assigned!");
             }
         }
     }
+
+
+
 
     private void Dead()
     {
@@ -60,13 +99,59 @@ public class EnemyHealthSystem : MonoBehaviour
             animator.SetBool("IsPlayerClose", false);
             animator.SetBool("IsPatrolling", false);
             animator.SetBool("IsAttacking", false);
+
+            Lootbag lootbagComponent = GetComponent<Lootbag>();
+            if (lootbagComponent != null)
+            {
+                lootbagComponent.InstantiateLoot(transform.position);
+            }
+            else
+            {
+                Debug.LogError("No Lootbag component found on this GameObject.");
+            }
+
+            BoxCollider boxCollider = GetComponent<BoxCollider>();
+            if (boxCollider != null)
+            {
+                boxCollider.enabled = false;
+            }
+
+            CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+            if (capsuleCollider != null)
+            {
+                capsuleCollider.enabled = false;
+            }
+
+            GetComponent<EnemyNavMesh>().enabled = false;
+            GetComponent<NavMeshAgent>().enabled = false;
+
+            // Calcular la rotación inversa del enemigo
+            Quaternion reverseRotation = transform.rotation * Quaternion.Euler(0, 180, 0);
+
+            // Instanciar una copia del Prefab de Sangre con la posición y rotación inversa del enemigo
+            GameObject sangreInstance = Instantiate(Sangre, Sangre.transform.position, Sangre.transform.rotation);
+
+            // Desvincular la sangre del padre actual
+            sangreInstance.transform.parent = null;
+
+            // Activar la sangre
+            sangreInstance.SetActive(true);
+
         }
         else
         {
             Debug.LogWarning("Animator not found!");
         }
-
-        // Destruir el GameObject después de 1 segundo
-        Destroy(gameObject, 1f);
     }
+
+    //private void DestroyRecursive(GameObject obj)
+    //{
+    //    foreach (Transform child in obj.transform)
+    //    {
+    //        DestroyRecursive(child.gameObject);
+    //    }
+    //    // Programar la destrucción del objeto después de 2 segundos
+    //    Destroy(obj, 2f);
+    //}
+
 }
