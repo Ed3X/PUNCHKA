@@ -1835,7 +1835,7 @@ MonoBehaviour:
   manoDe: {fileID: 0}
   autoTargetRange: 2
   speed: 20
-  rotationSpeed: 5
+  rotationSpeed: 20
   visionAngle: 120
   isAttacking: 0
   attackCooldown: 1
@@ -3892,10 +3892,10 @@ MonoBehaviour:
   manoDe: {fileID: 772510446}
   autoTargetRange: 2
   speed: 20
-  rotationSpeed: 1000
+  rotationSpeed: 2000
   visionAngle: 90
   isAttacking: 0
-  attackCooldown: 2
+  attackCooldown: 1
 --- !u!23 &584171066
 MeshRenderer:
   m_ObjectHideFlags: 0
