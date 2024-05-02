@@ -9,6 +9,7 @@ TagManager:
   - Loot
   - ObjetoAudio
   - Screamer
+  - Dientes
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Enemy
   - Pared
   - "Curaci\xF3n"
-  - 
+  - Player
   - 
   - 
   - 
