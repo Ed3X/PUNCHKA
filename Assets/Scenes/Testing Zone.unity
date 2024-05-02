@@ -3872,20 +3872,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 584171057}
   m_Enabled: 1
---- !u!114 &584171061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584171057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa3802619f503c47897059fb1fccbdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: c53acddbc6bf04f4093262c667aebce7, type: 3}
-  screamer: {fileID: 8300000, guid: 0f2b0b7cd5456b64f9b78fe8cb861ec7, type: 3}
 --- !u!114 &584171063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3909,7 +3895,7 @@ MonoBehaviour:
   rotationSpeed: 1000
   visionAngle: 90
   isAttacking: 0
-  attackCooldown: 1
+  attackCooldown: 2
 --- !u!23 &584171066
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12291,9 +12277,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe882b687fce43145acfb05ccc6e0348, type: 3}
       insertIndex: -1
       addedObject: {fileID: 584171063}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe882b687fce43145acfb05ccc6e0348, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 584171061}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe882b687fce43145acfb05ccc6e0348, type: 3}
       insertIndex: -1
       addedObject: {fileID: 584171060}
