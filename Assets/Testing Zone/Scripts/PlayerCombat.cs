@@ -15,7 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public float visionAngle = 120f;
     float attackSpeed = 3f;
     float attackRange = 2f;
-    float maxAttackDistance = 0.7f; // Distancia máxima a la que puede acercarse el jugador al enemigo
+    float maxAttackDistance = 0.9f; // Distancia máxima a la que puede acercarse el jugador al enemigo
 
     private Animator anim; // Referencia al Animator
     public bool isAttacking = false; // Flag para controlar si el jugador está atacando
