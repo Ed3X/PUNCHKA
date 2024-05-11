@@ -4061,6 +4061,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b892296017b0093459681a47c1cc9492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &584171077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584171057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a267ac0acf617b040b13b1a157748f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offImages:
+  - {fileID: 27388339}
+  - {fileID: 758805964}
+  - {fileID: 601751373}
+  - {fileID: 702172247}
+  onImages:
+  - {fileID: 86662895}
+  - {fileID: 400994699}
+  - {fileID: 358248568}
+  - {fileID: 367215659}
 --- !u!1 &601419197
 GameObject:
   m_ObjectHideFlags: 0
@@ -4089,16 +4111,16 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 27388338}
+  - {fileID: 601751372}
   - {fileID: 758805963}
   - {fileID: 702172246}
-  - {fileID: 601751372}
-  - {fileID: 27388338}
   m_Father: {fileID: 571836665}
   m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 689, y: 323}
+  m_AnchoredPosition: {x: 689, y: 448.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &601751371
@@ -9786,7 +9808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 7fc868cfcaf09114bbc5b35ddbe4c924, type: 3}
+  m_Texture: {fileID: 2800000, guid: 7bb7c3be71f3c61429a6322b7ad76439, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -12295,6 +12317,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe882b687fce43145acfb05ccc6e0348, type: 3}
       insertIndex: -1
       addedObject: {fileID: 584171074}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fe882b687fce43145acfb05ccc6e0348, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 584171077}
   m_SourcePrefab: {fileID: 100100000, guid: fe882b687fce43145acfb05ccc6e0348, type: 3}
 --- !u!4 &1487997899 stripped
 Transform:
@@ -14112,10 +14137,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 86662894}
+  - {fileID: 358248567}
   - {fileID: 400994698}
   - {fileID: 367215658}
-  - {fileID: 358248567}
-  - {fileID: 86662894}
   m_Father: {fileID: 571836665}
   m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

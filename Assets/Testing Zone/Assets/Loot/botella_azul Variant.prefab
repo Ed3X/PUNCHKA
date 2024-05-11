@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -127.89156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.145892
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -111.9828
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -89,7 +89,7 @@ PrefabInstance:
       addedObject: {fileID: -6315404479721534185}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6206204521500789222}
+      addedObject: {fileID: 7143569173527384754}
     - targetCorrespondingSourceObject: {fileID: 8144394004440419581, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1700771510553673367}
@@ -146,7 +146,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9.79393, y: 11.905246, z: 9.185257}
   m_Center: {x: 0.074539185, y: 2.365477, z: 0.38734436}
---- !u!114 &6206204521500789222
+--- !u!114 &7143569173527384754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5208789204620927208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9e4e04f7eca5a46b9332417ef04e79, type: 3}
+  m_Script: {fileID: 11500000, guid: b05c880c8fd2d1940a13e044c77dc3ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabID: 40
+  objectID: 1

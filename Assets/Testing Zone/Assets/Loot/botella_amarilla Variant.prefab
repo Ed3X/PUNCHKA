@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -119.5138
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.145892
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -110.94196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -89,7 +89,7 @@ PrefabInstance:
       addedObject: {fileID: 5331857793250104848}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7328967948652117559}
+      addedObject: {fileID: 8378447873215861320}
     - targetCorrespondingSourceObject: {fileID: 5233112405309087440, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2029075153146151358}
@@ -118,9 +118,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7328967948652117559
+  m_Size: {x: 9.79393, y: 11.90525, z: 9.185257}
+  m_Center: {x: 0.07453918, y: 2.365477, z: 0.3873444}
+--- !u!114 &8378447873215861320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,10 +129,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4585009462750722733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9e4e04f7eca5a46b9332417ef04e79, type: 3}
+  m_Script: {fileID: 11500000, guid: b05c880c8fd2d1940a13e044c77dc3ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabID: 50
+  objectID: 2
 --- !u!1 &8935018515923065132 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5233112405309087440, guid: 30139580046ac754cbe9f4f177a983a4, type: 3}
