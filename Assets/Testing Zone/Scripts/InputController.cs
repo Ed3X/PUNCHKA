@@ -12,11 +12,39 @@ public class InputController : MonoBehaviour
     PlayerCombat playerCombat;
     PlayerHealthSystem playerHealth;
 
-    [SerializeField] float speed = 5f;
+    [SerializeField] private float speed = 5f;
+
+        // MÃ©todo pÃºblico para obtener el valor de speed
+        public float GetSpeed()
+        {
+            return speed;
+        }
+
+        // MÃ©todo pÃºblico para establecer el valor de speed
+        public void SetSpeed(float newSpeed)
+        {
+            speed = newSpeed;
+        }
+
     [SerializeField] float gravity = 9.81f; // Gravedad en m/s^2
     [SerializeField] float forceMultiplier = 0.1f; // Multiplicador de fuerza
     [SerializeField] float dashDistance = 5f; // Distancia del dash
-    [SerializeField] float dashCooldown = 1f; // Tiempo de espera para volver a dashear
+
+     [SerializeField] private float dashCooldown = 1f; // Tiempo de espera para volver a dashear
+
+    // MÃ©todo pÃºblico para obtener el valor de dashCooldown
+    public float GetDashCooldown()
+    {
+        return dashCooldown;
+    }
+
+    // MÃ©todo pÃºblico para establecer el valor de dashCooldown
+    public void SetDashCooldown(float newDashCooldown)
+    {
+        dashCooldown = newDashCooldown;
+    }
+
+
     [SerializeField] float dashDuration = 0.2f; // Espera del dash en segundos
     [SerializeField] float rotationSpeed = 10f;
     [SerializeField] float lateralSpeed = 0.1f;
@@ -26,13 +54,13 @@ public class InputController : MonoBehaviour
 
     private Animator anim;
     Vector3 velocity; // Vector de velocidad para la gravedad
-    bool isDashing = false; // Bandera para controlar si se está realizando un dash
+    bool isDashing = false; // Bandera para controlar si se estï¿½ realizando un dash
     bool isPegando = false;
     bool isMoving = false;
     internal static object instance;
 
     //private bool isMousePressed = false;
-    //private bool canRotate = true; // Indica si el personaje puede rotar hacia la dirección del ratón
+    //private bool canRotate = true; // Indica si el personaje puede rotar hacia la direcciï¿½n del ratï¿½n
 
     void Start()
     {
@@ -41,7 +69,7 @@ public class InputController : MonoBehaviour
         dashAction = playerInput.actions.FindAction("Dash");
         pegarAction = playerInput.actions.FindAction("Pegar");
         characterController = GetComponent<CharacterController>();
-        mainCamera = Camera.main; // Obtenemos la cámara principal
+        mainCamera = Camera.main; // Obtenemos la cï¿½mara principal
         moveAction.Enable();
         dashAction.Enable();
         anim = GetComponent<Animator>();
@@ -58,13 +86,13 @@ public class InputController : MonoBehaviour
     //}
     void Update()
     {
-        // Verifica si el jugador está atacando
-        if (!playerCombat.isAttacking) // Si no está atacando, permite el movimiento
+        // Verifica si el jugador estï¿½ atacando
+        if (!playerCombat.isAttacking) // Si no estï¿½ atacando, permite el movimiento
         {
             MovePlayer(); // Mueve al personaje en un eje fijo
         }
 
-        // Verifica si se ha presionado el botón de dash y realiza el dash si es así
+        // Verifica si se ha presionado el botï¿½n de dash y realiza el dash si es asï¿½
         if (dashAction.triggered && !isDashing && !playerCombat.isAttacking)
         {
             StartCoroutine(Dash());
@@ -72,7 +100,7 @@ public class InputController : MonoBehaviour
 
         if (pegarAction.triggered && !isPegando && !playerCombat.isAttacking)
         {
-            // Llamar a la función de ataque del PlayerCombat
+            // Llamar a la funciï¿½n de ataque del PlayerCombat
             playerCombat.Attack();
         }
     }
@@ -80,10 +108,10 @@ public class InputController : MonoBehaviour
 
     void MovePlayer()
     {
-        // Verifica si el jugador está atacando
+        // Verifica si el jugador estï¿½ atacando
         if (playerCombat.isAttacking)
         {
-            // Si el jugador está atacando, no permite el movimiento
+            // Si el jugador estï¿½ atacando, no permite el movimiento
             return;
         }
         Vector2 inputDirection = moveAction.ReadValue<Vector2>();
@@ -95,9 +123,9 @@ public class InputController : MonoBehaviour
             // Actualiza la variable isMoving
             isMoving = true;
 
-            // Calcula la rotación hacia la dirección del movimiento
+            // Calcula la rotaciï¿½n hacia la direcciï¿½n del movimiento
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            //Interpola suavemente la rotación actual hacia la rotación objetivo
+            //Interpola suavemente la rotaciï¿½n actual hacia la rotaciï¿½n objetivo
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
 
@@ -105,7 +133,7 @@ public class InputController : MonoBehaviour
             // Normaliza el vector de movimiento para evitar la velocidad adicional
             moveDirection.Normalize();
 
-            // Mueve al personaje en la dirección de entrada basada en las teclas de dirección o el joystick
+            // Mueve al personaje en la direcciï¿½n de entrada basada en las teclas de direcciï¿½n o el joystick
             characterController.Move(moveDirection * speed * Time.deltaTime);
         }
         else
@@ -126,28 +154,28 @@ public class InputController : MonoBehaviour
     {
         if (isDashing)
         {
-            yield break; // Si ya se está realizando un dash, salir del método
+            yield break; // Si ya se estï¿½ realizando un dash, salir del mï¿½todo
         }
 
-        isDashing = true; // Indica que se está realizando un dash
+        isDashing = true; // Indica que se estï¿½ realizando un dash
 
         playerHealth.isInvincible = true;
 
-        // Activa la animación de dash
+        // Activa la animaciï¿½n de dash
         anim.SetBool("Esquivar", true);
 
-        // Almacena la posición inicial del personaje antes del dash
+        // Almacena la posiciï¿½n inicial del personaje antes del dash
         Vector3 startPos = transform.position;
-        Vector3 dashDirection = transform.forward; // Dirección del dash es la dirección en la que el personaje está mirando
+        Vector3 dashDirection = transform.forward; // Direcciï¿½n del dash es la direcciï¿½n en la que el personaje estï¿½ mirando
 
-        // Interpola suavemente la posición del personaje desde la posición inicial hasta la posición final durante el dash
+        // Interpola suavemente la posiciï¿½n del personaje desde la posiciï¿½n inicial hasta la posiciï¿½n final durante el dash
         float elapsedTime = 0f;
         while (elapsedTime < dashDuration)
         {
-            // Normaliza la dirección del dash para mantener la misma velocidad en cualquier dirección
+            // Normaliza la direcciï¿½n del dash para mantener la misma velocidad en cualquier direcciï¿½n
             Vector3 finalDirection = (dashDirection * dashDistance);
 
-            // Normaliza la velocidad lateral para evitar movimientos diagonales más rápidos que en línea recta
+            // Normaliza la velocidad lateral para evitar movimientos diagonales mï¿½s rï¿½pidos que en lï¿½nea recta
             finalDirection = finalDirection.normalized * lateralSpeed;
 
             transform.position += finalDirection * Time.deltaTime;
@@ -156,7 +184,7 @@ public class InputController : MonoBehaviour
             yield return null;
         }
 
-        // Desactiva la animación de dash al finalizar
+        // Desactiva la animaciï¿½n de dash al finalizar
         anim.SetBool("Esquivar", false);
 
         playerHealth.isInvincible = false;
@@ -168,15 +196,6 @@ public class InputController : MonoBehaviour
         isDashing = false;
 
     }
-
-
-
-
-
-
-
-
-
 
     //public void OnDashAnimationEnd()
     //{
