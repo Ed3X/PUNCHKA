@@ -109,35 +109,10 @@ public class PlayerHealthSystem : MonoBehaviour
         deathImage.SetActive(true);
         playerInput.enabled = false;
 
-        StartCoroutine(FadeOut());
-    }
 
-    IEnumerator FadeOut()
-    {
-        // Activar la imagen de fade out
-        deathFadeImage.gameObject.SetActive(true);
-
-        // Obtener el color inicial de la imagen
-        Color color = deathFadeImage.color;
-
-        // Iterar durante la duración del fade out
-        float timer = 0;
-        while (timer < fadeDuration)
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            // Calcular el nuevo valor de opacidad
-            float alpha = Mathf.Lerp(0, 1, timer / fadeDuration);
-
-            // Actualizar el color de la imagen con la nueva opacidad
-            deathFadeImage.color = new Color(color.r, color.g, color.b, alpha);
-
-            // Avanzar el temporizador
-            timer += Time.deltaTime;
-
-            // Esperar un frame
-            yield return null;
+            SceneManager.LoadScene("Testing Zone");
         }
-
-        // Una vez completado el fade out, reiniciar la escena o cargar una nueva escena
-        SceneManager.LoadScene("Testing Zone");
     }
 }
