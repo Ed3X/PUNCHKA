@@ -168,7 +168,7 @@ MonoBehaviour:
   roadHelper: {fileID: 1679936991}
   structureHelper: {fileID: 111087897}
   spawnLocalizer: {fileID: 713276561}
-  roadLength: 8
+  roadLength: 6
 --- !u!1 &111087895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   rules:
   - {fileID: 11400000, guid: 7e76f1c50650dfb4583240ed02c68e35, type: 2}
   rootSentence: '[F][--F]'
-  iterationLimit: 3
+  iterationLimit: 2
   randomIgnoreRuleModifier: 1
   chanceToIgnoreRule: 0.3
 --- !u!1 &1679936989

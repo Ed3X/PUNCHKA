@@ -16,9 +16,9 @@ public class SpawnLocalizer : MonoBehaviour
     private bool playerSpawnPlaced = false;
     private bool shopSpawnPlaced = false;
 
-    public string SpawnEnemyPrefabName = "";
-    public string SpawnPlayerPrefabName = "";
-    public string SpawnShopPrefabName = "";
+    public string SpawnEnemyPrefabName = "EnemySpawnPrefab";
+    public string SpawnPlayerPrefabName = "PlayerSpawnPrefab";
+    public string SpawnShopPrefabName = "ShopSpawnPrefab";
 
     public void LocalizeSpawnablePositions()
     {
@@ -47,6 +47,14 @@ public class SpawnLocalizer : MonoBehaviour
                 }
             }
         }
+        GameObject enemySpawn = GameObject.Find(SpawnEnemyPrefabName);
+        Debug.Log("Reach");
+        if (enemySpawn != null)
+        {
+            Debug.Log("Localized");
+            enemySpawn.SetActive(false);
+        }
+            
         
     }
 }
