@@ -12,6 +12,8 @@ namespace SVS
         public RoadHelper roadHelper;
         public StructureHelper structureHelper;
 
+        public SpawnLocalizer spawnLocalizer;
+
         // var random = UnityEngine.Random.Range(0, prefabs.Length);
         public int roadLength = 8;
         private int length = 8;
@@ -99,6 +101,8 @@ namespace SVS
             }
             roadHelper.FixRoad();
             structureHelper.PlaceStructuresAroundRoad(roadHelper.GetRoadPositions());
+
+            spawnLocalizer.LocalizeSpawnablePositions();
         }
     }
 }
