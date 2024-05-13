@@ -29,6 +29,8 @@ public class PlayerHealthSystem : MonoBehaviour
     private AudioSource audioSource;
     private PlayerInput playerInput;
 
+    public GameObject camara;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -110,7 +112,7 @@ public class PlayerHealthSystem : MonoBehaviour
         playerInput.enabled = false;
 
 
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("Testing Zone");
         }
