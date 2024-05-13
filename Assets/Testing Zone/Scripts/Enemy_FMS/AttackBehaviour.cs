@@ -48,6 +48,10 @@ public class AttackBehaviour : BaseBehaviour
                 lastAttackTime = Time.time; // Update last attack time
             }
         }
+        else
+        {
+            return;
+        }
 
         // Apuntar al jugador
         if (playerObject != null)
