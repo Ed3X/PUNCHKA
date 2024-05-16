@@ -8,9 +8,11 @@ public class SwitchImages : MonoBehaviour
     public RawImage[] offImages;
     public RawImage[] onImages;
     public InputController inputController;
+    public CombatController combatController; // Agrega referencia al CombatController
     public float effectDuration = 10f;
     public float speedPowerUp = 10f; // Velocidad modificada
     public float dashCooldownPowerUp = 0.5f; // Cooldown del dash modificado
+    public float damagePowerUp = 30f; // Daño aumentado durante el power-up de daño
 
     private bool isEffectActive = false;
     private bool isPowerUpActive = false; // Indica si el power up está activo
@@ -61,12 +63,18 @@ public class SwitchImages : MonoBehaviour
         inputController.SetSpeed(speedPowerUp);
         inputController.SetDashCooldown(dashCooldownPowerUp);
 
+        // Activa el power-up de daño durante el efecto
+        combatController.SetPowerUpActive(true);
+
         // Espera el tiempo del efecto
         yield return new WaitForSeconds(effectDuration);
 
         // Restaura los valores originales
         inputController.SetSpeed(originalSpeed);
         inputController.SetDashCooldown(originalDashCooldown);
+
+        // Desactiva el power-up de daño al finalizar el efecto
+        combatController.SetPowerUpActive(false);
 
         // Muestra ON_Blue y oculta OFF_Blue
         SwitchImage(0);
@@ -75,4 +83,3 @@ public class SwitchImages : MonoBehaviour
         isPowerUpActive = false;
     }
 }
-    

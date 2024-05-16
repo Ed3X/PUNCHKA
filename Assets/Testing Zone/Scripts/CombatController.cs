@@ -5,8 +5,11 @@ public class CombatController : MonoBehaviour
     public float meleeRange = 2f; // Alcance del golpe cuerpo a cuerpo
     public LayerMask targetLayer; // Capa de los objetivos contra los que se puede golpear
 
+    public float increasedDamage = 30f; // Da√±o aumentado durante el power-up
+
     private Animator animator;
     private Camera mainCamera;
+    private bool isPowerUpActive = false; // Indica si el power up de da√±o est√° activo
 
     void Start()
     {
@@ -16,7 +19,7 @@ public class CombatController : MonoBehaviour
 
     void Update()
     {
-        // Detectar la direcciÛn hacia donde apunta el ratÛn
+        // Detectar la direcci√≥n hacia donde apunta el rat√≥n
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -24,34 +27,42 @@ public class CombatController : MonoBehaviour
             Vector3 targetDirection = hit.point - transform.position;
             targetDirection.y = 0f; // Ignorar la componente Y para que el personaje no mire hacia arriba o abajo
 
-            // Girar el personaje hacia la direcciÛn del ratÛn
+            // Girar el personaje hacia la direcci√≥n del rat√≥n
             transform.rotation = Quaternion.LookRotation(targetDirection);
         }
 
-        // Realizar un ataque cuerpo a cuerpo cuando se presione el botÛn de ataque
-        if (Input.GetButtonDown("Fire1")) // Cambiar "Fire1" seg˙n el input que uses para el ataque
+        // Realizar un ataque cuerpo a cuerpo cuando se presione el bot√≥n de ataque y el power-up est√© activo
+        if (Input.GetButtonDown("Fire1") && isPowerUpActive) // Cambiar "Fire1" seg√∫n el input que uses para el ataque
         {
-            MeleeAttack();
+            MeleeAttackWithIncreasedDamage();
         }
     }
 
-    void MeleeAttack()
+void MeleeAttackWithIncreasedDamage()
+{
+    // Detectar los objetivos dentro del alcance del golpe
+    Collider[] hitColliders = Physics.OverlapSphere(transform.position, meleeRange, targetLayer);
+
+    // Realizar el ataque en todos los objetivos dentro del alcance con da√±o aumentado
+    foreach (Collider collider in hitColliders)
     {
-        // Detectar los objetivos dentro del alcance del golpe
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, meleeRange, targetLayer);
-
-        // Realizar el ataque en todos los objetivos dentro del alcance
-        foreach (Collider collider in hitColliders)
+        EnemyHealthSystem enemyHealth = collider.GetComponent<EnemyHealthSystem>();
+        if (enemyHealth != null)
         {
-            EnemyHealthSystem enemyHealth = collider.GetComponent<EnemyHealthSystem>();
-            if (enemyHealth != null)
-            {
-                // Aplicar daÒo al enemigo
-                enemyHealth.TakeDamage(20); // Ajusta "damageAmount" seg˙n la cantidad de daÒo que quieras que haga el ataque
-            }
+            // Convertir el da√±o aumentado a un entero antes de pasarlo
+            int damage = Mathf.RoundToInt(increasedDamage);
+            // Aplicar da√±o aumentado al enemigo
+            enemyHealth.TakeDamage(damage); // Utiliza el da√±o aumentado durante el power-up
         }
+    }
 
-        // Activar la animaciÛn de ataque en el Animator
-        animator.SetTrigger("Attack");
+    // Activar la animaci√≥n de ataque en el Animator
+    animator.SetTrigger("Attack");
+}
+
+    // M√©todo para activar/desactivar el power-up de da√±o
+    public void SetPowerUpActive(bool isActive)
+    {
+        isPowerUpActive = isActive;
     }
 }
