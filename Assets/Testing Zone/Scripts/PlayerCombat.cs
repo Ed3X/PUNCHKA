@@ -101,7 +101,7 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         // Esperar el tiempo de cooldown
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(1f);
 
         // Reiniciar la bandera de ataque y desactivar la animación
         isAttacking = false;

@@ -53,6 +53,7 @@ public class EnemyHealthSystem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        animator.SetTrigger("Stuned");
         Debug.Log("Infligiendo daño al enemigo.");
         if (currentHealth <= 0)
         {
