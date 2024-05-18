@@ -11,6 +11,8 @@ namespace SVS
         Dictionary<Vector3Int, GameObject> roadDictionary = new Dictionary<Vector3Int, GameObject>();
         HashSet<Vector3Int> fixRoadCandidates = new HashSet<Vector3Int>();
 
+        public Spawner spawner;
+
         public List<Vector3Int> GetRoadPositions()
         {
             return roadDictionary.Keys.ToList();
@@ -124,6 +126,8 @@ namespace SVS
             }
             roadDictionary.Clear();
             fixRoadCandidates = new HashSet<Vector3Int>();
+
+            spawner.DeleteOldSpawns();
         }
     }
 }
