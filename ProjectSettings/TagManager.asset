@@ -10,6 +10,7 @@ TagManager:
   - ObjetoAudio
   - Screamer
   - Dientes
+  - Spawner
   layers:
   - Default
   - TransparentFX

@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     public SpawnLocalizer spawnLocalizer;
 
+    public SpawnCleaner spawnCleaner;
+
     [SerializeField]
     private GameObject spawnEnemyPrefab;
     [SerializeField]
@@ -19,23 +21,8 @@ public class Spawner : MonoBehaviour
     }
     public void DeleteOldSpawns()
     {
-        Debug.Log("Hola");
+        spawnCleaner.CleanSpawns();
 
-        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-        List <GameObject> clones = new List <GameObject>();
-
-        foreach (GameObject obj in allObjects)
-        {
-            if (obj.name.Contains("(Clone)"))
-            {
-                clones.Add(obj);
-            }
-        }
-
-        foreach(GameObject obj in clones)
-        {
-            Destroy(obj);
-        }
         spawnShopPrefab.SetActive(true);
         spawnPlayerPrefab.SetActive(true);
         spawnEnemyPrefab.SetActive(true);
