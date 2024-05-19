@@ -18,9 +18,22 @@ public class SpawnLocalizer : MonoBehaviour
 
     private int spawnCount = 0;
 
+    public LevelScript levelScript;
+
+    private int enemyspawns;
+
+    private void Start()
+    {
+        enemyspawns = levelScript.EnemiesToBeSpawned();
+        Debug.Log(enemyspawns);
+    }
+
     public void LocalizeSpawnablePositions()
     {
         spawnCount = 0;
+
+
+
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 
         foreach (GameObject obj in allObjects)
@@ -41,7 +54,7 @@ public class SpawnLocalizer : MonoBehaviour
                         shopSpawnPlaced = true;
                         spawnCount++;
                     }
-                    else
+                    else 
                     {
                         GameObject enemySpawnPrefab = Instantiate(spawnEnemyPrefab, obj.transform.position, obj.transform.rotation);
                         spawnCount++;
@@ -54,5 +67,7 @@ public class SpawnLocalizer : MonoBehaviour
         spawnShopPrefab.SetActive(false);
         spawnPlayerPrefab.SetActive(false);
         spawnEnemyPrefab.SetActive(false);
+
+
     }
 }
