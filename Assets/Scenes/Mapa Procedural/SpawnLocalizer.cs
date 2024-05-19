@@ -20,6 +20,8 @@ public class SpawnLocalizer : MonoBehaviour
 
     public LevelScript levelScript;
 
+    public ObjectSpawner objectSpawner;
+
     private int enemyspawns;
 
     private void Start()
@@ -68,6 +70,6 @@ public class SpawnLocalizer : MonoBehaviour
         spawnPlayerPrefab.SetActive(false);
         spawnEnemyPrefab.SetActive(false);
 
-
+        objectSpawner.SpawnEntities();
     }
 }
