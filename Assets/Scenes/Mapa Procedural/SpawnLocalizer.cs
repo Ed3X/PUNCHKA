@@ -18,17 +18,8 @@ public class SpawnLocalizer : MonoBehaviour
 
     private int spawnCount = 0;
 
-    public LevelScript levelScript;
-
     public ObjectSpawner objectSpawner;
 
-    private int enemyspawns;
-
-    private void Start()
-    {
-        enemyspawns = levelScript.EnemiesToBeSpawned();
-        Debug.Log(enemyspawns);
-    }
 
     public void LocalizeSpawnablePositions()
     {
@@ -42,7 +33,7 @@ public class SpawnLocalizer : MonoBehaviour
         {
             if(obj.layer == LayerMask.NameToLayer(targetLayerName))
             {
-                if(Random.value < 0.1f)
+                if(Random.value < 0.15f)
                 {
                     if(!playerSpawnPlaced)
                     {
@@ -65,7 +56,7 @@ public class SpawnLocalizer : MonoBehaviour
             }
         }
 
-        Debug.Log(spawnCount);
+        Debug.Log("Spawnpoints build:" + spawnCount);
         spawnShopPrefab.SetActive(false);
         spawnPlayerPrefab.SetActive(false);
         spawnEnemyPrefab.SetActive(false);
