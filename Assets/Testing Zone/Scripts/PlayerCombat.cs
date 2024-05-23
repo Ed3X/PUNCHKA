@@ -90,6 +90,7 @@ public class PlayerCombat : MonoBehaviour
 
         // Activar la animación de Ataque en el Animator
         anim.SetBool("Ataque", true);
+        anim.SetBool("Ataque 1", true);
 
         // Marcar que el jugador está atacando
         isAttacking = true;
@@ -101,11 +102,11 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         // Esperar el tiempo de cooldown
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
 
         // Reiniciar la bandera de ataque y desactivar la animación
         isAttacking = false;
-        anim.SetBool("Ataque", false);
+        anim.SetBool("Ataque 1", false);
     }
 
     // Método para encontrar el enemigo más cercano dentro del cono de visión

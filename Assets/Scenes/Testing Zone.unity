@@ -9579,10 +9579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -14935,11 +14935,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5571934157906513991, guid: 72cf04bd488bf91489b459bce4e470d4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001607641
+      value: -0.000000016076397
       objectReference: {fileID: 0}
     - target: {fileID: 5571934157906513991, guid: 72cf04bd488bf91489b459bce4e470d4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000061326024
+      value: 0.0000000061325984
       objectReference: {fileID: 0}
     - target: {fileID: 5571934157906513991, guid: 72cf04bd488bf91489b459bce4e470d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15135,11 +15135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001607641
+      value: -0.000000016076397
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000061326024
+      value: 0.0000000061325984
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
