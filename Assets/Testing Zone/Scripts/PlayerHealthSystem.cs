@@ -1,11 +1,9 @@
-// El script actualizado con la referencia a la cámara.
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Cinemachine;
-using UnityEngine.InputSystem.XInput;
 
 public class PlayerHealthSystem : MonoBehaviour
 {
@@ -24,8 +22,6 @@ public class PlayerHealthSystem : MonoBehaviour
     public Hurt_Layout hurt_Layout;
     public AudioClip deathSong;
     public GameObject deathImage;
-    //public Image deathFadeImage;
-    //public float fadeDuration = 3.0f;
 
     private Material myMaterial;
     private float flashTimer;
@@ -33,11 +29,10 @@ public class PlayerHealthSystem : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerCombat playerCombat;
     private WeaponSwitcher weaponSwitcher;
-    private PlayerHealthSystem healthSystem;
     private CharacterController charController;
     private InputController inputController;
 
-    public CinemachineVirtualCamera camara; // Ahora es un CinemachineVirtualCamera
+    public CinemachineVirtualCamera camara;
 
     private Animator anim;
 
@@ -52,7 +47,6 @@ public class PlayerHealthSystem : MonoBehaviour
         inputController = GetComponent<InputController>();
         playerCombat = GetComponent<PlayerCombat>();
         weaponSwitcher = GetComponent<WeaponSwitcher>();
-        healthSystem = GetComponent<PlayerHealthSystem>();
         charController = GetComponent<CharacterController>();
 
         anim = GetComponent<Animator>();
@@ -64,7 +58,6 @@ public class PlayerHealthSystem : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
 
         deathImage.SetActive(false);
-        //deathFadeImage.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -132,12 +125,9 @@ public class PlayerHealthSystem : MonoBehaviour
         inputController.enabled = false;
         playerCombat.enabled = false;
         weaponSwitcher.enabled = false;
-        healthSystem.enabled = false;
         charController.enabled = false;
 
         ChangeOrthoSize(3f, 5f);
-
-        healthSystem.enabled = false;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -147,12 +137,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
     void ChangeOrthoSize(float targetSize, float duration)
     {
-        if (camara != null) // Asegurándose de que la referencia a la cámara no sea nula
+        if (camara != null)
         {
-            // Obtener el tamaño actual de la lente ortográfica
             float currentSize = camara.m_Lens.OrthographicSize;
-
-            // Iniciar una rutina para cambiar suavemente el tamaño
             StartCoroutine(SmoothOrthoSizeChange(currentSize, targetSize, duration));
         }
     }
@@ -163,21 +150,18 @@ public class PlayerHealthSystem : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            // Interpolar entre el tamaño inicial y el tamaño objetivo a lo largo del tiempo
             float newSize = Mathf.Lerp(startSize, targetSize, elapsedTime / duration);
-
-            // Aplicar el nuevo tamaño a la lente ortográfica
             camara.m_Lens.OrthographicSize = newSize;
-
-            // Incrementar el tiempo transcurrido
             elapsedTime += Time.deltaTime;
-
-            // Esperar un frame
             yield return null;
         }
 
-        // Asegurarse de que el tamaño objetivo sea alcanzado exactamente al finalizar la interpolación
         camara.m_Lens.OrthographicSize = targetSize;
     }
 
+    public void HealToMax()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetHealth(currentHealth);
+    }
 }

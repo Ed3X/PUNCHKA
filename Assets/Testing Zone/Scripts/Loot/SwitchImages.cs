@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,20 +7,21 @@ public class SwitchImages : MonoBehaviour
     public RawImage[] offImages;
     public RawImage[] onImages;
     public InputController inputController;
-    public CombatController combatController; // Agrega referencia al CombatController
+    public CombatController combatController; // Referencia al CombatController
+    public PlayerHealthSystem playerHealthSystem; // Nueva referencia al PlayerHealthSystem
     public float effectDuration = 10f;
     public float speedPowerUp = 10f; // Velocidad modificada
     public float dashCooldownPowerUp = 0.5f; // Cooldown del dash modificado
     public float damagePowerUp = 30f; // Daño aumentado durante el power-up de daño
 
     private bool isEffectActive = false;
-    private bool isPowerUpActive = false; // Indica si el power up está activo
+    private bool isPowerUpActive = false; // Indica si el power-up está activo
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            SwitchImage(2); // Hide ON_Blue, Show OFF_Blue
+            StartCoroutine(ActivateHealingEffect());
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
@@ -41,7 +41,6 @@ public class SwitchImages : MonoBehaviour
     {
         if (index >= 0 && index < onImages.Length)
         {
-            // Desactiva ON_Blue y activa OFF_Blue
             onImages[index].gameObject.SetActive(false);
             offImages[index].gameObject.SetActive(true);
         }
@@ -52,34 +51,51 @@ public class SwitchImages : MonoBehaviour
         isEffectActive = true;
         isPowerUpActive = true;
 
-        // Guarda los valores originales
         float originalSpeed = inputController.GetSpeed();
         float originalDashCooldown = inputController.GetDashCooldown();
 
-        // Oculta ON_Blue y muestra OFF_Blue
         SwitchImage(0);
 
-        // Aplica los efectos modificados
         inputController.SetSpeed(speedPowerUp);
         inputController.SetDashCooldown(dashCooldownPowerUp);
 
-        // Activa el power-up de daño durante el efecto
         combatController.SetPowerUpActive(true);
 
-        // Espera el tiempo del efecto
         yield return new WaitForSeconds(effectDuration);
 
-        // Restaura los valores originales
         inputController.SetSpeed(originalSpeed);
         inputController.SetDashCooldown(originalDashCooldown);
 
-        // Desactiva el power-up de daño al finalizar el efecto
         combatController.SetPowerUpActive(false);
 
-        // Muestra ON_Blue y oculta OFF_Blue
         SwitchImage(0);
 
         isEffectActive = false;
         isPowerUpActive = false;
+    }
+
+    private IEnumerator ActivateHealingEffect()
+    {
+        if (!isEffectActive && !isPowerUpActive)
+        {
+            isEffectActive = true;
+            isPowerUpActive = true;
+
+            SwitchImage(2); // Hide ON_Blue, Show OFF_Blue
+
+            playerHealthSystem.HealToMax();
+
+            yield return new WaitForSeconds(effectDuration);
+
+            SwitchImage(2);
+
+            isEffectActive = false;
+            isPowerUpActive = false;
+        }
+        else
+        {
+            // Curación inmediata sin activar el cooldown
+            playerHealthSystem.HealToMax();
+        }
     }
 }
