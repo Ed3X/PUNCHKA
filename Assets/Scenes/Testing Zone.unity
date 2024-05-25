@@ -12715,6 +12715,17 @@ Transform:
   m_Father: {fileID: 491193789}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793158044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8906820681712341672, guid: abe97e5840b3d044e886bbdd1e209c51, type: 3}
+  m_PrefabInstance: {fileID: 2773647549942434157}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073af2e8bba456b44b3fa9a680b2fdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1804116302
 GameObject:
   m_ObjectHideFlags: 0
@@ -14692,6 +14703,14 @@ PrefabInstance:
       propertyPath: targetImage
       value: 
       objectReference: {fileID: 816475777}
+    - target: {fileID: 5435955530630447228, guid: abe97e5840b3d044e886bbdd1e209c51, type: 3}
+      propertyPath: playerCombat
+      value: 
+      objectReference: {fileID: 1793158044}
+    - target: {fileID: 5435955530630447228, guid: abe97e5840b3d044e886bbdd1e209c51, type: 3}
+      propertyPath: damagePowerUp
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5435955530630447228, guid: abe97e5840b3d044e886bbdd1e209c51, type: 3}
       propertyPath: playerHealthSystem
       value: 

@@ -24,9 +24,12 @@ public class PlayerCombat : MonoBehaviour
     // Lista para mantener un registro de los enemigos golpeados durante el ataque actual
     List<EnemyHealthSystem> enemiesHitThisAttack = new List<EnemyHealthSystem>();
 
+    private int baseDamage;
+
     private void Start()
     {
         anim = GetComponent<Animator>(); // Obtener referencia al Animator
+        baseDamage = damage; // Guardar el daño base
     }
 
     private void Update()
@@ -153,4 +156,15 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    // Método para establecer el daño
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
+
+    // Método para restablecer el daño al valor base
+    public void ResetDamage()
+    {
+        damage = baseDamage;
+    }
 }
