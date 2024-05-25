@@ -15,6 +15,12 @@ public class SwitchImages : MonoBehaviour
     public float dashCooldownPowerUp = 0.5f; // Cooldown del dash modificado
     public int damagePowerUp = 30; // Daño aumentado durante el power-up de daño
 
+    // Nuevas variables para el power-up de ataque y autoenfoque
+    public float attackCooldownPowerUp = 1f;
+    public float autoTargetRangePowerUp = 1f;
+    public float dashCooldownPowerUpForKey4 = 1f; // Cooldown del dash para la tecla 4
+    public float powerUpDuration = 5f; // Duración del nuevo power-up
+
     private bool isEffectActive = false;
     private bool isPowerUpActive = false; // Indica si el power-up está activo
 
@@ -24,9 +30,9 @@ public class SwitchImages : MonoBehaviour
         {
             StartCoroutine(ActivateHealingEffect());
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && !isEffectActive && !isPowerUpActive)
         {
-            SwitchImage(3); // Hide ON_Green, Show OFF_Green
+            StartCoroutine(ActivateAttackCooldownPowerUp());
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5) && !isEffectActive && !isPowerUpActive)
         {
@@ -91,6 +97,33 @@ public class SwitchImages : MonoBehaviour
         playerCombat.ResetDamage();
 
         SwitchImage(1); // Cambiar imagen correspondiente
+
+        isEffectActive = false;
+        isPowerUpActive = false;
+    }
+
+    private IEnumerator ActivateAttackCooldownPowerUp()
+    {
+        isEffectActive = true;
+        isPowerUpActive = true;
+
+        float originalAttackCooldown = playerCombat.attackCooldown;
+        float originalAutoTargetRange = playerCombat.autoTargetRange;
+        float originalDashCooldown = inputController.GetDashCooldown(); // Guardar el cooldown original del dash
+
+        SwitchImage(3); // Cambiar imagen correspondiente
+
+        playerCombat.attackCooldown = attackCooldownPowerUp;
+        playerCombat.autoTargetRange = autoTargetRangePowerUp;
+        inputController.SetDashCooldown(dashCooldownPowerUpForKey4); // Ajustar el cooldown del dash
+
+        yield return new WaitForSeconds(powerUpDuration);
+
+        playerCombat.attackCooldown = originalAttackCooldown;
+        playerCombat.autoTargetRange = originalAutoTargetRange;
+        inputController.SetDashCooldown(originalDashCooldown); // Restaurar el cooldown original del dash
+
+        SwitchImage(3); // Cambiar imagen correspondiente
 
         isEffectActive = false;
         isPowerUpActive = false;
