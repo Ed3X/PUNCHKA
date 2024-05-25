@@ -26,22 +26,36 @@ public class SwitchImages : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha6))
+        if (AllOffImagesActive()) return;
+
+        if (Input.GetKeyDown(KeyCode.Alpha6) && onImages[2].gameObject.activeSelf)
         {
             StartCoroutine(ActivateHealingEffect());
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && !isEffectActive && !isPowerUpActive)
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && onImages[3].gameObject.activeSelf && !isEffectActive && !isPowerUpActive)
         {
             StartCoroutine(ActivateAttackCooldownPowerUp());
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && !isEffectActive && !isPowerUpActive)
+        else if (Input.GetKeyDown(KeyCode.Alpha5) && onImages[1].gameObject.activeSelf && !isEffectActive && !isPowerUpActive)
         {
             StartCoroutine(ActivateDamagePowerUp());
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && !isEffectActive && !isPowerUpActive)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && onImages[0].gameObject.activeSelf && !isEffectActive && !isPowerUpActive)
         {
             StartCoroutine(ActivateEffect());
         }
+    }
+
+    private bool AllOffImagesActive()
+    {
+        foreach (RawImage offImage in offImages)
+        {
+            if (!offImage.gameObject.activeSelf)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void SwitchImage(int index)
