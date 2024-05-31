@@ -22,7 +22,7 @@ public class BuildingHandler : MonoBehaviour
                 {
                     return;
                 }
-                if(hit.collider.gameObject == player)
+                else if(hit.collider.gameObject == player)
                 {
                     // nothing in front of the player
                     if(_fader != null)
