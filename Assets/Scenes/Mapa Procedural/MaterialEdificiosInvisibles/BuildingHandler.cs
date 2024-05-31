@@ -24,8 +24,6 @@ public class BuildingHandler : MonoBehaviour
                     return;
                 }
 
-
-
                 if(hit.collider.gameObject == player)
                 {
                     // nothing in front of the player
@@ -35,9 +33,6 @@ public class BuildingHandler : MonoBehaviour
                         _fader.DoFade = false;
                     }
                 }
-
-
-
 
                 else
                 {
