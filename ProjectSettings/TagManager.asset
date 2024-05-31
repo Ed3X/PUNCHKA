@@ -11,6 +11,7 @@ TagManager:
   - Screamer
   - Dientes
   - Spawner
+  - BuildingPlayerHandler
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class BuildingHandler : MonoBehaviour
 
     private void Update()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("BuildingPlayerHandler");
 
         if(player != null)
         {
@@ -18,18 +18,27 @@ public class BuildingHandler : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit))
             {
+                Debug.Log(hit.collider.gameObject.name);
                 if(hit.collider == null)
                 {
                     return;
                 }
-                else if(hit.collider.gameObject == player)
+
+
+
+                if(hit.collider.gameObject == player)
                 {
                     // nothing in front of the player
                     if(_fader != null)
                     {
+                        // PROBLEM HERE doesn't identify player
                         _fader.DoFade = false;
                     }
                 }
+
+
+
+
                 else
                 {
                     _fader = hit.collider.gameObject.GetComponent<ObjectFader>();
