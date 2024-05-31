@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.18533, g: 324.8582, b: 429.96686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -558,6 +558,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0701888, y: 0.061329275, z: 0.15116195}
   m_Center: {x: -0.005, y: -2.463706e-16, z: 0.075580955}
+--- !u!114 &631720702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631720696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9e29b661e7b794d8fd514f3e12cc93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadedMaterial: {fileID: 2100000, guid: 310e1777e61028744a232d0d935c8acb, type: 2}
+  DoFade: 0
 --- !u!1 &658793402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8942989
+      value: 0.894299
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1386,11 +1400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.34114456
+      value: -0.34114453
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.10320633
+      value: 0.1032063
       objectReference: {fileID: 0}
     - target: {fileID: 731137169948185334, guid: d4b42ba87a5f26a4f8fedaf53b18cdd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2118,7 +2132,7 @@ PrefabInstance:
       addedObject: {fileID: 2079894084}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74c9ebac3a79f8841ba37e09a44e05cc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2079894087}
+      addedObject: {fileID: 2079894090}
   m_SourcePrefab: {fileID: 100100000, guid: 74c9ebac3a79f8841ba37e09a44e05cc, type: 3}
 --- !u!1 &1517404971
 GameObject:
@@ -2462,6 +2476,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92eb26bfd7fae0c42a256724600111b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 631720699}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92eb26bfd7fae0c42a256724600111b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 631720702}
   m_SourcePrefab: {fileID: 100100000, guid: 92eb26bfd7fae0c42a256724600111b1, type: 3}
 --- !u!4 &1922237028 stripped
 Transform:
@@ -2824,7 +2841,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.07089603, y: 0.08770901, z: 0.11921546}
   m_Center: {x: -0.005, y: 0.0003067336, z: -0.0056029544}
---- !u!114 &2079894087
+--- !u!114 &2079894090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2833,14 +2850,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2079894081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75aef5f7d507c446bcd74f3007aa4b9, type: 3}
+  m_Script: {fileID: 11500000, guid: ba9e29b661e7b794d8fd514f3e12cc93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 10
-  fadeAmount: 0.2
-  originalOpacity: 0
-  Mats: []
-  FadedMaterial: {fileID: 0}
+  FadedMaterial: {fileID: 2100000, guid: 310e1777e61028744a232d0d935c8acb, type: 2}
   DoFade: 0
 --- !u!1 &2086120288
 GameObject:
@@ -2930,8 +2943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9e29b661e7b794d8fd514f3e12cc93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 10
-  fadeAmount: 0.5
   FadedMaterial: {fileID: 2100000, guid: 310e1777e61028744a232d0d935c8acb, type: 2}
   DoFade: 0
 --- !u!20 &1429685651030729152
@@ -2992,7 +3003,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6831091152424947956}
-  m_LocalRotation: {x: 0.2705519, y: -0.34114456, z: 0.10320633, w: 0.8942989}
+  m_LocalRotation: {x: 0.2705519, y: -0.34114453, z: 0.1032063, w: 0.894299}
   m_LocalPosition: {x: 49.23, y: 25, z: -5.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

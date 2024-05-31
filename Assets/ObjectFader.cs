@@ -23,6 +23,7 @@ public class ObjectFader : MonoBehaviour
     {
         if (DoFade)
         {
+            Debug.Log(DoFade);
             FadeNow();
         }
         else
