@@ -9,6 +9,8 @@ public class ObjectFader : MonoBehaviour
 
     private Material[] Mats;
 
+    public Material FadedMaterial;
+
     public bool DoFade = false;
 
 
@@ -17,7 +19,7 @@ public class ObjectFader : MonoBehaviour
         Mats = GetComponent<Renderer>().materials;
         foreach (Material mat in Mats)
         {
-            originalOpacity = mat.color.a;
+            originalOpacity = FadedMaterial.color.a;
         }        
     }
 
