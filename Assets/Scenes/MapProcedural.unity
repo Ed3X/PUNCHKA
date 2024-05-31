@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.18533, g: 324.8582, b: 429.96686, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -498,7 +498,7 @@ PrefabInstance:
       addedObject: {fileID: 2123990608}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ab973f859ad7a4409442e5122bafa9f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2123990611}
+      addedObject: {fileID: 2123990614}
   m_SourcePrefab: {fileID: 100100000, guid: 8ab973f859ad7a4409442e5122bafa9f, type: 3}
 --- !u!1 &518259608
 GameObject:
@@ -1123,6 +1123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeSpeed: 10
   fadeAmount: 0.2
+  originalOpacity: 0
+  Mats: []
+  FadedMaterial: {fileID: 0}
   DoFade: 0
 --- !u!65 &898644123
 BoxCollider:
@@ -2835,6 +2838,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeSpeed: 10
   fadeAmount: 0.2
+  originalOpacity: 0
+  Mats: []
+  FadedMaterial: {fileID: 0}
   DoFade: 0
 --- !u!1 &2086120288
 GameObject:
@@ -2912,7 +2918,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.07051364, y: 0.061329275, z: 0.079470836}
   m_Center: {x: -0.0035921445, y: -2.2045527e-16, z: 0.029735446}
---- !u!114 &2123990611
+--- !u!114 &2123990614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2921,11 +2927,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2123990605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75aef5f7d507c446bcd74f3007aa4b9, type: 3}
+  m_Script: {fileID: 11500000, guid: ba9e29b661e7b794d8fd514f3e12cc93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fadeSpeed: 10
-  fadeAmount: 0.2
+  fadeAmount: 0.5
+  FadedMaterial: {fileID: 2100000, guid: 310e1777e61028744a232d0d935c8acb, type: 2}
   DoFade: 0
 --- !u!20 &1429685651030729152
 Camera:

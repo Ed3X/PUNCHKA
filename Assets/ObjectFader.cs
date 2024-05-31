@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class ObjectFader : MonoBehaviour
 {
-    public float fadeSpeed, fadeAmount;
-    private float originalOpacity;
-
-    private Material[] Mats;
+    private Material[] MatsToChange;
+    private Material[] MatsToRevert;
 
     public Material FadedMaterial;
 
@@ -16,14 +14,10 @@ public class ObjectFader : MonoBehaviour
 
     void Start()
     {
-        Mats = GetComponent<Renderer>().materials;
-        foreach (Material mat in Mats)
-        {
-            originalOpacity = FadedMaterial.color.a;
-        }        
+        MatsToChange = GetComponent<Renderer>().materials;   
+        MatsToRevert = GetComponent<Renderer>().materials;
+        
     }
-
-
 
     void Update()
     {
@@ -39,22 +33,19 @@ public class ObjectFader : MonoBehaviour
 
     void FadeNow()
     {
-        foreach (Material mat in Mats)
+        for (int i=0; i<MatsToChange.Length; i++)
         {
-            Color currentColor = mat.color;
-            Color smoothColor = new Color(currentColor.r, currentColor.g, currentColor.b,
-                Mathf.Lerp(currentColor.a, fadeAmount, fadeSpeed * Time.deltaTime));
-            mat.color = smoothColor;
+            MatsToChange[i] = FadedMaterial;
+            
         }
+        GetComponent<Renderer>().materials = MatsToChange;
     }
     void ResetFade()
     {
-        foreach (Material mat in Mats)
+        for(int i=0; i<MatsToRevert.Length; i++)
         {
-            Color currentColor = mat.color;
-            Color smoothColor = new Color(currentColor.r, currentColor.g, currentColor.b,
-                Mathf.Lerp(currentColor.a, originalOpacity, fadeSpeed * Time.deltaTime));
-            mat.color = smoothColor;
+            MatsToChange[i] = MatsToRevert[i];
         }
+        GetComponent <Renderer>().materials = MatsToRevert;
     }
 }
