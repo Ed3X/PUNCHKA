@@ -18,7 +18,6 @@ public class BuildingHandler : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.gameObject.name);
                 if(hit.collider == null)
                 {
                     return;

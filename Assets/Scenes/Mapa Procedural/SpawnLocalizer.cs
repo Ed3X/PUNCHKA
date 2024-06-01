@@ -7,60 +7,57 @@ public class SpawnLocalizer : MonoBehaviour
     [SerializeField]
     private string targetLayerName = "Calle";
     [SerializeField]
-    private GameObject spawnEnemyPrefab;
+    public GameObject spawnEnemyPrefab;
     [SerializeField]
-    private GameObject spawnPlayerPrefab;
-    [SerializeField]
-    private GameObject spawnShopPrefab;
+    public GameObject spawnPlayerPrefab;
 
-    private bool playerSpawnPlaced = false;
-    private bool shopSpawnPlaced = false;
+    public LevelScript levelScript;
 
-    private int spawnCount = 0;
+    private bool playerSpawnPlaced = false;    
 
-    public ObjectSpawner objectSpawner;
-
-
-    public void LocalizeSpawnablePositions()
+    private void Start()
     {
-        spawnCount = 0;
+        int spawnCount = levelScript.EnemiesToBeSpawned();
+        LocalizeSpawnablePositions(spawnCount);
+    }
 
-
-
+    public void LocalizeSpawnablePositions(int spawnCount)
+    {
+        Debug.Log(spawnCount);
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 
-        foreach (GameObject obj in allObjects)
+        while (spawnCount > 0)
         {
-            if(obj.layer == LayerMask.NameToLayer(targetLayerName))
+            foreach (GameObject obj in allObjects)
             {
-                if(Random.value < 0.15f)
+                if(spawnCount == 0)
                 {
-                    if(!playerSpawnPlaced)
+                    return;
+                }
+                if (obj.layer == LayerMask.NameToLayer(targetLayerName))
+                {
+                    if (Random.value < 0.2f)
                     {
-                        GameObject playerSpawnPrefab = Instantiate(spawnPlayerPrefab, obj.transform.position, obj.transform.rotation);
-                        playerSpawnPlaced=true;
-                        spawnCount++;
-                    }
-                    else if (!shopSpawnPlaced)
-                    {
-                        GameObject shopSpawnPrefab = Instantiate(spawnShopPrefab, obj.transform.position, obj.transform.rotation);
-                        shopSpawnPlaced = true;
-                        spawnCount++;
-                    }
-                    else 
-                    {
-                        GameObject enemySpawnPrefab = Instantiate(spawnEnemyPrefab, obj.transform.position, obj.transform.rotation);
-                        spawnCount++;
+                        if (!playerSpawnPlaced)
+                        {
+                            //GameObject playerSpawnPrefab = Instantiate(spawnPlayerPrefab, obj.transform.position, obj.transform.rotation);
+                            //playerSpawnPlaced = true;
+                            playerSpawnPlaced=true;
+                            spawnPlayerPrefab.transform.position = obj.transform.position;
+                            Debug.Log("Spawns the player at: " + obj.transform.position + " with rotation: " + obj.transform.rotation);
+                            spawnCount--;
+                        }
+                        else
+                        {
+                            GameObject enemySpawnPrefab = Instantiate(spawnEnemyPrefab, obj.transform.position, obj.transform.rotation);                            
+                            Debug.Log("Spawns the enemy" + obj.transform.position + " with rotation: " + obj.transform.rotation);
+                            spawnCount--;
+                        }
                     }
                 }
             }
         }
-
-        Debug.Log("Spawnpoints build:" + spawnCount);
-        spawnShopPrefab.SetActive(false);
-        spawnPlayerPrefab.SetActive(false);
+        Debug.Log("Gets here");
         spawnEnemyPrefab.SetActive(false);
-
-        objectSpawner.SpawnEntities();
     }
 }

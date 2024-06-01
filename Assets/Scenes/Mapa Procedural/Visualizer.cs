@@ -103,8 +103,6 @@ namespace SVS
             }
             roadHelper.FixRoad();
             structureHelper.PlaceStructuresAroundRoad(roadHelper.GetRoadPositions());
-
-            spawnLocalizer.LocalizeSpawnablePositions();
         }
     }
 }
