@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.18533, g: 324.8582, b: 429.96686, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -394,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1962004304893084206, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1962004304893084206, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
       propertyPath: m_LocalPosition.y
@@ -402,7 +402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1962004304893084206, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1962004304893084206, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
       propertyPath: m_LocalRotation.w
@@ -456,7 +456,11 @@ PrefabInstance:
       propertyPath: movePositionTransform
       value: 
       objectReference: {fileID: 377984966}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4296053556762789634, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
+    - {fileID: 5159978521860886624, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
+    - {fileID: 6976269266579038300, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
+    - {fileID: 8761239136226924817, guid: d5822286a13b14644a6bfe8a7af5abda, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2865,6 +2869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 5
   visualizer: {fileID: 76756184}
+  spawnLocalizer: {fileID: 713276561}
 --- !u!4 &2086120290
 Transform:
   m_ObjectHideFlags: 0

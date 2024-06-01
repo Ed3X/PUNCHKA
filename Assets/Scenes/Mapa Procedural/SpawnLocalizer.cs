@@ -19,10 +19,13 @@ public class SpawnLocalizer : MonoBehaviour
     {
         int spawnCount = levelScript.EnemiesToBeSpawned();
         LocalizeSpawnablePositions(spawnCount);
+        spawnEnemyPrefab.SetActive(true);
     }
 
     public void LocalizeSpawnablePositions(int spawnCount)
     {
+        spawnEnemyPrefab.SetActive(true);
+        playerSpawnPlaced=false;
         Debug.Log(spawnCount);
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 
@@ -32,6 +35,7 @@ public class SpawnLocalizer : MonoBehaviour
             {
                 if(spawnCount == 0)
                 {
+                    spawnEnemyPrefab.SetActive(false);
                     return;
                 }
                 if (obj.layer == LayerMask.NameToLayer(targetLayerName))
@@ -55,9 +59,8 @@ public class SpawnLocalizer : MonoBehaviour
                         }
                     }
                 }
+                
             }
         }
-        Debug.Log("Gets here");
-        spawnEnemyPrefab.SetActive(false);
     }
 }
