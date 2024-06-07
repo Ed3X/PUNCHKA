@@ -2904,11 +2904,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f002e49ddbb7244b0d8fc1df31b1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadStraight: {fileID: 8668498108124264191, guid: 2ad38575ccb88744aaca67d2480eb179, type: 3}
-  roadCorner: {fileID: 4891109906756892111, guid: 277a53f62a8a75547852c7dbb35be78b, type: 3}
-  road3way: {fileID: 5122837960494537515, guid: 6bd7ef3c6100c234d89f6a7ae681f419, type: 3}
-  road4way: {fileID: 4107189751877305641, guid: bc1a8b4e35835f8468355918c3e2a086, type: 3}
-  roadEnd: {fileID: 1798201626644918822, guid: a91e385188209e44bb0d3693574761f4, type: 3}
+  roadStraight: {fileID: 4686631245337217967, guid: a21ea5eac220c984a980bad4d4a814c8, type: 3}
+  roadCorner: {fileID: 6707175167760454384, guid: 3c3e028ce517fd04d9c8a1e207287af9, type: 3}
+  road3way: {fileID: 8064376250100453053, guid: c494eb94022d84a46b62a3f7c53b01ca, type: 3}
+  road4way: {fileID: 5695391117405437491, guid: 4ced0d9d7d62780408ec60223a9a6432, type: 3}
+  roadEnd: {fileID: 8315751579712775180, guid: 14b17db7301859747a394968ee81ffbe, type: 3}
   spawnLocalizer: {fileID: 713276561}
 --- !u!1 &1690412740
 GameObject:
