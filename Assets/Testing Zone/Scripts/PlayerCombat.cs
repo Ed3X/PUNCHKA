@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -19,11 +18,9 @@ public class PlayerCombat : MonoBehaviour
 
     private Animator anim; // Referencia al Animator
     public bool isAttacking = false; // Flag para controlar si el jugador está atacando
-    public float attackCooldown = 1f; // Tiempo de espera antes de otro ataque
+    public float attackCooldown = 0.3f; // Tiempo de espera antes de otro ataque
 
-    // Lista para mantener un registro de los enemigos golpeados durante el ataque actual
-    List<EnemyHealthSystem> enemiesHitThisAttack = new List<EnemyHealthSystem>();
-
+    private bool hasDealtDamage = false; // Bandera para controlar si se ha infligido daño
     private int baseDamage;
 
     private void Start()
@@ -43,7 +40,6 @@ public class PlayerCombat : MonoBehaviour
             Transform nearestEnemy = FindNearestEnemyInCone(hitColliders);
             if (nearestEnemy != null)
             {
-                Attack();
                 // Calcular la dirección hacia el enemigo y normalizarla
                 Vector3 directionToEnemy = (nearestEnemy.position - transform.position);
                 directionToEnemy.y = 0f; // Limitar el movimiento al plano horizontal (ejes X y Z)
@@ -70,10 +66,11 @@ public class PlayerCombat : MonoBehaviour
                 // Rotar al jugador hacia el enemigo (solo en los ejes X y Z)
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-                if (nearestEnemy != null && enemyLayer == (enemyLayer | (1 << nearestEnemy.gameObject.layer)))
+                // Infligir daño solo una vez por ataque
+                if (!hasDealtDamage && nearestEnemy != null && enemyLayer == (enemyLayer | (1 << nearestEnemy.gameObject.layer)))
                 {
                     DealDamage(nearestEnemy.GetComponent<EnemyHealthSystem>());
-                    return;
+                    hasDealtDamage = true; // Marcar que se ha infligido daño
                 }
             }
         }
@@ -85,18 +82,12 @@ public class PlayerCombat : MonoBehaviour
         if (isAttacking)
             return;
 
-        // Restablecer el estado de ataque a falso al inicio de un nuevo ataque
-        isAttacking = false;
-
-        // Limpiar la lista de enemigos golpeados durante este ataque
-        enemiesHitThisAttack.Clear();
-
-        // Activar la animación de Ataque en el Animator
-        anim.SetBool("Ataque", true);
-        anim.SetBool("Ataque 1", true);
-
         // Marcar que el jugador está atacando
         isAttacking = true;
+        hasDealtDamage = false; // Restablecer la bandera de daño
+
+        // Activar la animación de Ataque en el Animator
+        anim.SetTrigger("Ataque");
 
         // Iniciar el cooldown del ataque
         StartCoroutine(AttackCooldown());
@@ -105,11 +96,10 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         // Esperar el tiempo de cooldown
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(attackCooldown);
 
-        // Reiniciar la bandera de ataque y desactivar la animación
+        // Reiniciar la bandera de ataque
         isAttacking = false;
-        anim.SetBool("Ataque 1", false);
     }
 
     // Método para encontrar el enemigo más cercano dentro del cono de visión
@@ -149,9 +139,6 @@ public class PlayerCombat : MonoBehaviour
             {
                 // Infligir daño al enemigo
                 enemyHealth.TakeDamage(damage);
-
-                // Desactivar la capacidad de atacar para evitar múltiples golpes durante el mismo ataque
-                isAttacking = false;
             }
         }
     }
