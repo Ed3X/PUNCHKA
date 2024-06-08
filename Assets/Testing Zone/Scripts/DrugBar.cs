@@ -11,7 +11,7 @@ public class DrugBar : MonoBehaviour
     public float drogaActual;
     public float drogaMaxima;
 
-    public float decayRate = 10f;
+    public float decayRate = 3f;
 
     private GameObject playerObject;
 

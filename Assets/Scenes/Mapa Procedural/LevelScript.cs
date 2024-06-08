@@ -2,6 +2,7 @@ using SVS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelScript : MonoBehaviour
@@ -13,6 +14,14 @@ public class LevelScript : MonoBehaviour
 
     public Visualizer visualizer;
     public SpawnLocalizer spawnLocalizer;
+
+    public TMP_Text CurrentLevelTextbox;
+    public TMP_Text EnemiesToKillTextbox;
+
+    private void Start()
+    {
+        LevelPassed();
+    }
 
     public int EnemiesToBeSpawned()
     {
@@ -28,6 +37,9 @@ public class LevelScript : MonoBehaviour
         visualizer.CreateTown();
         DestroyAllEnemies();
         spawnLocalizer.LocalizeSpawnablePositions(EnemiesToBeSpawned());
+
+        CurrentLevelTextbox.text = $"Level: {currentLevel}";
+        EnemiesToKillTextbox.text = $"{EnemiesToBeSpawned()-1}";
     }
 
     private void DestroyAllEnemies()
