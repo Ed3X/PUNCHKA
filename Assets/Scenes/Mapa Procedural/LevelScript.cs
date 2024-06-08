@@ -81,4 +81,8 @@ public class LevelScript : MonoBehaviour
             }
             Debug.Log("Current Enemies: " + currentEnemies);        
     }
+    public void PlayerDies()
+    {
+        Debug.Log("hola");
+    }
 }

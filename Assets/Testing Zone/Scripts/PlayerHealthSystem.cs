@@ -32,9 +32,13 @@ public class PlayerHealthSystem : MonoBehaviour
     private CharacterController charController;
     private InputController inputController;
 
+    public LevelScript levelScript;
+
     public CinemachineVirtualCamera camara;
 
     private Animator anim;
+
+    bool PlayerDieFunctionCalled = false;
 
     private void Start()
     {
@@ -62,10 +66,6 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PlayerTakesDamage(100);
-        }
         if (flashTimer > 0)
         {
             flashTimer -= Time.deltaTime;
@@ -129,10 +129,12 @@ public class PlayerHealthSystem : MonoBehaviour
 
         ChangeOrthoSize(0.3f, 0.5f);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!PlayerDieFunctionCalled)
         {
-            SceneManager.LoadScene("Testing Zone");
+            levelScript.PlayerDies();
+            PlayerDieFunctionCalled = true;
         }
+        
     }
 
     void ChangeOrthoSize(float targetSize, float duration)
