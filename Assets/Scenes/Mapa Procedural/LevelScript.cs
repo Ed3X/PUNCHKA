@@ -12,15 +12,23 @@ public class LevelScript : MonoBehaviour
 
     public int currentEnemies = 1;
 
+    public int TotalEnemyKills = 0;
+
     public Visualizer visualizer;
     public SpawnLocalizer spawnLocalizer;
 
     public TMP_Text CurrentLevelTextbox;
     public TMP_Text EnemiesToKillTextbox;
 
+    float elapsedTime = 0f;
+
     private void Start()
     {
         LevelPassed();
+    }
+    public void Update()
+    {
+        elapsedTime = Time.time;
     }
 
     public int EnemiesToBeSpawned()
@@ -74,15 +82,22 @@ public class LevelScript : MonoBehaviour
     }
     public void EnemyKillCounter()
     {        
-            currentEnemies++;
-            if(currentEnemies == EnemiesToBeSpawned() - 1)
-            {
-                LevelPassed();
-            }
-            Debug.Log("Current Enemies: " + currentEnemies);        
+        currentEnemies++;
+        TotalEnemyKills++;
+        if(currentEnemies == EnemiesToBeSpawned() - 1)
+        {
+            LevelPassed();
+        }
+        Debug.Log("Current Enemies: " + currentEnemies);        
     }
     public void PlayerDies()
     {
-        Debug.Log("hola");
+        int levelsCleared = currentLevel-1;
+        Debug.Log("End Levels Cleared " + levelsCleared);
+        int enemiesKilled = TotalEnemyKills;
+        Debug.Log("End Total Enemies Killed " + enemiesKilled);
+        //int ToothCount =
+        int TimeAlive = Mathf.FloorToInt(elapsedTime);
+        Debug.Log("End Time Alive " +  TimeAlive);
     }
 }
