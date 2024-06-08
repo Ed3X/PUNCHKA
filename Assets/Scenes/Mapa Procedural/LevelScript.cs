@@ -19,13 +19,6 @@ public class LevelScript : MonoBehaviour
         return totalEnemies + (currentLevel * 2)+1;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            LevelPassed();
-        }
-    }
     public void LevelPassed()
     {
         currentLevel++;
@@ -38,7 +31,7 @@ public class LevelScript : MonoBehaviour
 
     private void DestroyAllEnemies()
     {
-        string targetName = "ENEMY Variant(Clone)";
+        string targetName = "ENEMY Variant (1)(Clone)";
 
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
         List<GameObject> foundObjects = new List<GameObject>();
@@ -67,20 +60,12 @@ public class LevelScript : MonoBehaviour
         Debug.Log("Level " + currentLevel);
     }
     public void EnemyKillCounter()
-    {
-        int TotalEnemies = EnemiesToBeSpawned();
-
-        Debug.Log("Current Total Enemies to kill " + totalEnemies);
-        
-        if (currentEnemies < TotalEnemies)
-        {            
+    {        
             currentEnemies++;
-            Debug.Log("Current Enemies: " + currentEnemies);
-        }
-        else
-        {
-            Debug.Log("Level passed");
-            LevelPassed();
-        }
+            if(currentEnemies == EnemiesToBeSpawned() - 1)
+            {
+                LevelPassed();
+            }
+            Debug.Log("Current Enemies: " + currentEnemies);        
     }
 }
