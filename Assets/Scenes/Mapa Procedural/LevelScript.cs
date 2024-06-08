@@ -9,6 +9,8 @@ public class LevelScript : MonoBehaviour
     public int currentLevel = 1;
     private int totalEnemies = 5;
 
+    public int currentEnemies = 1;
+
     public Visualizer visualizer;
     public SpawnLocalizer spawnLocalizer;
 
@@ -63,5 +65,22 @@ public class LevelScript : MonoBehaviour
     private void CurrentLevel()
     {
         Debug.Log("Level " + currentLevel);
+    }
+    public void EnemyKillCounter()
+    {
+        int TotalEnemies = EnemiesToBeSpawned();
+
+        Debug.Log("Current Total Enemies to kill " + totalEnemies);
+        
+        if (currentEnemies < TotalEnemies)
+        {            
+            currentEnemies++;
+            Debug.Log("Current Enemies: " + currentEnemies);
+        }
+        else
+        {
+            Debug.Log("Level passed");
+            LevelPassed();
+        }
     }
 }

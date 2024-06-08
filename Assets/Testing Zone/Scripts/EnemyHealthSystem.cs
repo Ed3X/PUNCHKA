@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class EnemyHealthSystem : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int maxHealth = 50;
     public int currentHealth;
     public bool IsDead { get; private set; }
 
@@ -13,6 +13,8 @@ public class EnemyHealthSystem : MonoBehaviour
 
     // Evento para notificar cuando un enemigo es destruido
     public event Action OnEnemyDestroyed;
+
+    public LevelScript levelScript;
 
     void Start()
     {
@@ -56,8 +58,9 @@ public class EnemyHealthSystem : MonoBehaviour
         animator.SetTrigger("Stuned");
         Debug.Log("Infligiendo daño al enemigo.");
         if (currentHealth <= 0)
-        {
+        {            
             Debug.Log("Enemy died.");
+            levelScript.EnemyKillCounter();
             Dead();
         }
         else
@@ -89,6 +92,8 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private void Dead()
     {
+        
+
         IsDead = true;
         // Llamar al evento OnEnemyDestroyed
         OnEnemyDestroyed?.Invoke();
