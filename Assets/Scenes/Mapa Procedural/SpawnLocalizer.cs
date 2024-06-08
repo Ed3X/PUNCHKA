@@ -19,7 +19,7 @@ public class SpawnLocalizer : MonoBehaviour
     {
         int spawnCount = levelScript.EnemiesToBeSpawned();
         LocalizeSpawnablePositions(spawnCount);
-        spawnEnemyPrefab.SetActive(true);
+        spawnEnemyPrefab.SetActive(false);
         playerSpawnPlaced=false;
     }
 
@@ -30,12 +30,13 @@ public class SpawnLocalizer : MonoBehaviour
         Debug.Log(spawnCount);
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 
-        while (spawnCount > 0)
+        while (spawnCount >= 0)
         {
             foreach (GameObject obj in allObjects)
             {
                 if(spawnCount == 0)
                 {
+                    Debug.Log("Should be invisible");
                     spawnEnemyPrefab.SetActive(false);
                     return;
                 }

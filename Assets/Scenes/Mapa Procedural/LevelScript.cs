@@ -14,7 +14,7 @@ public class LevelScript : MonoBehaviour
 
     public int EnemiesToBeSpawned()
     {
-        return totalEnemies + (currentLevel * 2);
+        return totalEnemies + (currentLevel * 2)+1;
     }
 
     private void Update()
