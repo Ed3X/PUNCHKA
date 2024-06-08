@@ -22,6 +22,7 @@ public class LevelScript : MonoBehaviour
     public void LevelPassed()
     {
         currentLevel++;
+        currentEnemies = 1;
         CurrentLevel();
         EnemiesToKill();
         visualizer.CreateTown();
