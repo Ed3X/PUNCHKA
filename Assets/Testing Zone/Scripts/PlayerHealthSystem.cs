@@ -38,7 +38,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private void Start()
     {
-        ChangeOrthoSize(5f, 0.5f);
+        ChangeOrthoSize(0.5f, 0.05f);
         currentHealth = maxHealth;
         myMaterial = GetComponent<Renderer>().material;
         originalColor = myMaterial.color;
@@ -127,7 +127,7 @@ public class PlayerHealthSystem : MonoBehaviour
         weaponSwitcher.enabled = false;
         charController.enabled = false;
 
-        ChangeOrthoSize(3f, 5f);
+        ChangeOrthoSize(0.3f, 0.5f);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuildingHandler : MonoBehaviour
 {
-    private ObjectFader _fader;
+    private ObjectFader _currentFader;
+    private ObjectFader _previousFader;
     [SerializeField] private float sphereCastRadius = 10f; // Adjust radius as needed
 
     private void Update()
@@ -27,21 +28,43 @@ public class BuildingHandler : MonoBehaviour
                 if (hit.collider.gameObject == player)
                 {
                     // Nothing in front of the player
-                    if (_fader != null)
+                    if (_currentFader != null)
                     {
-                        // PROBLEM HERE doesn't identify player
-                        _fader.DoFade = false;
+                        _currentFader.DoFade = false;
+                        _currentFader = null;
                     }
                 }
                 else
                 {
-                    _fader = hit.collider.gameObject.GetComponent<ObjectFader>();
-                    if (_fader != null)
+                    _currentFader = hit.collider.gameObject.GetComponent<ObjectFader>();
+                    if (_currentFader != null)
                     {
-                        _fader.DoFade = true;
-                        // You might want to check the distance of the hit object 
-                        // for a smoother fade effect based on proximity
+                        _currentFader.DoFade = true;
                     }
+
+                    // Restore the previous fader if it's different from the current one
+                    if (_previousFader != null && _previousFader != _currentFader)
+                    {
+                        _previousFader.DoFade = false;
+                    }
+
+                    // Update the previous fader to the current one
+                    _previousFader = _currentFader;
+                }
+            }
+            else
+            {
+                // No hit, restore the previous fader if exists
+                if (_currentFader != null)
+                {
+                    _currentFader.DoFade = false;
+                    _currentFader = null;
+                }
+
+                if (_previousFader != null)
+                {
+                    _previousFader.DoFade = false;
+                    _previousFader = null;
                 }
             }
         }
