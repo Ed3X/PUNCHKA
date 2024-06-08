@@ -19,7 +19,7 @@ public class SpawnLocalizer : MonoBehaviour
     {
         int spawnCount = levelScript.EnemiesToBeSpawned();
         LocalizeSpawnablePositions(spawnCount);
-        spawnEnemyPrefab.SetActive(false);
+        spawnEnemyPrefab.SetActive(true);
         playerSpawnPlaced=false;
     }
 
@@ -46,10 +46,8 @@ public class SpawnLocalizer : MonoBehaviour
                     {
                         if (!playerSpawnPlaced)
                         {
-                            //GameObject playerSpawnPrefab = Instantiate(spawnPlayerPrefab, obj.transform.position, obj.transform.rotation);
-                            //playerSpawnPlaced = true;
-                            spawnPlayerPrefab.transform.position = obj.transform.position;
-                            Debug.Log("Spawns the player at: " + obj.transform.position + " with rotation: " + obj.transform.rotation);
+                            Vector3 position = new Vector3(0f, 0f, 0f);
+                            spawnPlayerPrefab.transform.position = position; 
                             playerSpawnPlaced = true;
                             spawnCount--;
                         }
