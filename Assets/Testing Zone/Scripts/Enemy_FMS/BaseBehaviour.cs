@@ -15,16 +15,16 @@ public class BaseBehaviour : StateMachineBehaviour
     protected bool CheckPlayer(Transform mySelf)
     {
         float distance = Vector3.Distance(_player.position, mySelf.position);
-        return distance < 10;
+        return distance < 1;
     }
     protected bool CheckPlayer2(Transform mySelf)
     {
         float distance = Vector3.Distance(_player.position, mySelf.position);
-        return distance < 3;
+        return distance < 0.15;
     }
     protected bool CheckPlayer3(Transform mySelf)
     {
         float distance = Vector3.Distance(_player.position, mySelf.position);
-        return distance < 1;
+        return distance < 0.1;
     }
 }

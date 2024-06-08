@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26529b2ff67ae904b99cebcc30ba9157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChaseSpeed: 1
+  ChaseSpeed: 0.3
 --- !u!1101 &-615712528036276672
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -813,7 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196d23be58c3d684b9c39c59c6db5981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.5
+  attackRange: 0.1
   attackCooldown: 1
   Damage: 10
   lastAttackTime: 0
