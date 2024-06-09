@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+
+    public GameObject fin;
     private void Start()
     {
         Time.timeScale = 1f; // Reanudar el tiempo del juego
+        FadeOut();
     }
     // Lista de nombres de las escenas
     public string[] sceneNames;
@@ -29,5 +32,11 @@ public class SceneLoader : MonoBehaviour
         {
             Debug.LogError("Índice de escena fuera de rango.");
         }
+    }
+
+    void FadeOut()
+    {
+        fin.SetActive(false);
+
     }
 }

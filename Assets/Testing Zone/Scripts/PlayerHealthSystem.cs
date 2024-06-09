@@ -138,6 +138,7 @@ public class PlayerHealthSystem : MonoBehaviour
         }
 
         StartCoroutine(ShowDeathScreenAfterDelay(5.0f)); // Inicia la coroutine para mostrar la pantalla de muerte después de 5 segundos
+        deathImage.SetActive(false);
     }
 
     IEnumerator ShowDeathScreenAfterDelay(float delay)
