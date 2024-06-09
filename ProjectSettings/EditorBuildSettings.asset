@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/InGame.unity
     guid: 8f526596e7995e042a40e03da340b971
   - enabled: 1
+    path: Assets/Scenes/MapProcedural.unity
+    guid: 7c53dc3efa1a23d4288a5ad5fbc4fdda
+  - enabled: 1
     path: Assets/Scenes/ResumeGame.unity
     guid: fed0f3fc06f433e4289d804abf21d219
   m_configObjects:

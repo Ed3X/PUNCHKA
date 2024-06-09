@@ -21,7 +21,8 @@ public class PlayerHealthSystem : MonoBehaviour
     public Transform Respawn;
     public Hurt_Layout hurt_Layout;
     public AudioClip deathSong;
-    public GameObject deathImage;
+    public GameObject deathImage; // Canvas para la imagen de muerte (ya existente)
+    public GameObject deathScreenCanvas; // Nuevo canvas para la pantalla de muerte
 
     private Material myMaterial;
     private float flashTimer;
@@ -61,7 +62,8 @@ public class PlayerHealthSystem : MonoBehaviour
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
-        deathImage.SetActive(false);
+        deathImage.SetActive(false); // Asegúrate de que el canvas de la imagen de muerte esté desactivado al inicio
+        deathScreenCanvas.SetActive(false); // Asegúrate de que el nuevo canvas de la pantalla de muerte esté desactivado al inicio
     }
 
     private void Update()
@@ -120,7 +122,7 @@ public class PlayerHealthSystem : MonoBehaviour
     private void Die()
     {
         anim.SetTrigger("Muerto");
-        deathImage.SetActive(true);
+        deathImage.SetActive(true); // Activa el canvas de la imagen de muerte
         playerInput.enabled = false;
         inputController.enabled = false;
         playerCombat.enabled = false;
@@ -134,7 +136,14 @@ public class PlayerHealthSystem : MonoBehaviour
             levelScript.PlayerDies();
             PlayerDieFunctionCalled = true;
         }
-        
+
+        StartCoroutine(ShowDeathScreenAfterDelay(5.0f)); // Inicia la coroutine para mostrar la pantalla de muerte después de 5 segundos
+    }
+
+    IEnumerator ShowDeathScreenAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        deathScreenCanvas.SetActive(true); // Activa el nuevo canvas de la pantalla de muerte después del retraso
     }
 
     void ChangeOrthoSize(float targetSize, float duration)

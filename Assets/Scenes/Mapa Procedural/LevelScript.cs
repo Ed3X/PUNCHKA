@@ -100,30 +100,30 @@ public class LevelScript : MonoBehaviour
     public void PlayerDies()
     {
         int levelsCleared = currentLevel-1;
-        Debug.Log("End Levels Cleared " + levelsCleared);
+        Debug.Log("" + levelsCleared);
         int levelsClearedPoints = levelsCleared * 3000;
 
-        levelsClearedTextbox.text = $"Niveles Completados x  { levelsCleared} ............. {levelsClearedPoints}";
+        levelsClearedTextbox.text = $"{ levelsCleared}";
 
         int enemiesKilled = TotalEnemyKills;
-        Debug.Log("End Total Enemies Killed " + enemiesKilled);
+        Debug.Log("" + enemiesKilled);
         int EnemiesKilledPoints = TotalEnemyKills * 250;
 
-        TotalEnemiesKilledTextbox.text = $"Enemigos Muertos x {enemiesKilled} ........... {EnemiesKilledPoints}";
+        TotalEnemiesKilledTextbox.text = $"{enemiesKilled}";
 
         int ToothCount = catchLoot.TotalDientes();
-        Debug.Log("End Tooth Count " + ToothCount);
+        Debug.Log("" + ToothCount);
         int ToothCountPoints = ToothCount * 75;
-        DientesRecolectadosTextbox.text = $"Dientes Rotos x {ToothCount} .......... {ToothCountPoints}";
+        DientesRecolectadosTextbox.text = $"{ToothCount}";
 
         int TimeAlive = Mathf.FloorToInt(elapsedTime);
-        Debug.Log("End Time Alive " +  TimeAlive);
+        Debug.Log("" +  TimeAlive);
         int TimeAlivePoints = TimeAlive * 5;
 
-        TimeAliveTextbox.text = $"Segundos sobrevividos x {TimeAlive} ............. {TimeAlivePoints}";
+        TimeAliveTextbox.text = $"{TimeAlive}";
 
         int computoTotalPuntos = levelsClearedPoints + EnemiesKilledPoints + TimeAlivePoints + ToothCountPoints;
-        PuntuacionFinalTextbox.text = $"PUNTUACIÓN TOTAL .............. {computoTotalPuntos}";
+        PuntuacionFinalTextbox.text = $"{computoTotalPuntos}";
 
         //CurrentLevelTextbox.text = $"Level: {currentLevel}";
         //EnemiesToKillTextbox.text = $"{EnemiesToBeSpawned() - 1}";
