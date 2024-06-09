@@ -16,6 +16,7 @@ public class LevelScript : MonoBehaviour
 
     public Visualizer visualizer;
     public SpawnLocalizer spawnLocalizer;
+    public CatchLoot catchLoot;
 
     public TMP_Text CurrentLevelTextbox;
     public TMP_Text EnemiesToKillTextbox;
@@ -110,7 +111,10 @@ public class LevelScript : MonoBehaviour
 
         TotalEnemiesKilledTextbox.text = $"Enemigos Muertos x {enemiesKilled} ........... {EnemiesKilledPoints}";
 
-        //int ToothCount =
+        int ToothCount = catchLoot.TotalDientes();
+        Debug.Log("End Tooth Count " + ToothCount);
+        int ToothCountPoints = ToothCount * 75;
+        DientesRecolectadosTextbox.text = $"Dientes Rotos x {ToothCount} .......... {ToothCountPoints}";
 
         int TimeAlive = Mathf.FloorToInt(elapsedTime);
         Debug.Log("End Time Alive " +  TimeAlive);
@@ -118,7 +122,7 @@ public class LevelScript : MonoBehaviour
 
         TimeAliveTextbox.text = $"Segundos sobrevividos x {TimeAlive} ............. {TimeAlivePoints}";
 
-        int computoTotalPuntos = levelsClearedPoints + EnemiesKilledPoints + TimeAlivePoints;
+        int computoTotalPuntos = levelsClearedPoints + EnemiesKilledPoints + TimeAlivePoints + ToothCountPoints;
         PuntuacionFinalTextbox.text = $"PUNTUACIÓN TOTAL .............. {computoTotalPuntos}";
 
         //CurrentLevelTextbox.text = $"Level: {currentLevel}";

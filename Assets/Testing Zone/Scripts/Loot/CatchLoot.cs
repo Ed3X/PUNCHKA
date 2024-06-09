@@ -26,4 +26,8 @@ public class CatchLoot : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    public int TotalDientes()
+    {
+        return score;
+    }
 }
