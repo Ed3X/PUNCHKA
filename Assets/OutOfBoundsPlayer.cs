@@ -18,7 +18,7 @@ public class OutOfBoundsPlayer : MonoBehaviour
             if(Player != null)
             {
                 Debug.Log("Out of bounds player being moved");
-                Player.transform.position = Vector3.zero;
+                Player.transform.position = new Vector3(0f,0f,0f);
             }
             
         }
