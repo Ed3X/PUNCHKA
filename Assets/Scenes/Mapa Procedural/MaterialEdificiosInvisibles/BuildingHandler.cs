@@ -1,70 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingHandler : MonoBehaviour
 {
-    private ObjectFader _currentFader;
-    private ObjectFader _previousFader;
-    [SerializeField] private float sphereCastRadius = 10f; // Adjust radius as needed
+    [SerializeField] private float sphereCastRadius = 10f; // Ajusta el radio según sea necesario
+    [SerializeField] private float sphereCastLength = 100f; // Ajusta la longitud según sea necesario
 
     private void Update()
     {
+        Camera mainCamera = Camera.main;
         GameObject player = GameObject.FindGameObjectWithTag("BuildingPlayerHandler");
 
-        if (player != null)
+        if (mainCamera != null && player != null)
         {
-            Vector3 dir = player.transform.position - transform.position;
-            RaycastHit hit;
+            Vector3 start = mainCamera.transform.position;
+            Vector3 direction = player.transform.position - start;
+            RaycastHit[] hits = Physics.SphereCastAll(start, sphereCastRadius, direction, sphereCastLength);
 
-            // Perform SphereCast instead of Raycast
-            if (Physics.SphereCast(transform.position, sphereCastRadius, dir, out hit))
+            float distanceToPlayer = Vector3.Distance(start, player.transform.position);
+
+            foreach (RaycastHit hit in hits)
             {
-                if (hit.collider == null)
-                {
-                    return;
-                }
+                GameObject hitObject = hit.collider.gameObject;
 
-                if (hit.collider.gameObject == player)
+                // Calcular la distancia desde el punto de impacto hasta la cámara
+                float distanceToCamera = Vector3.Distance(start, hit.point);
+
+                // Solo afectar a los objetos que estén más cerca de la cámara que el jugador
+                if (distanceToCamera < distanceToPlayer)
                 {
-                    // Nothing in front of the player
-                    if (_currentFader != null)
+                    // Verificar si el objeto impactado es el jugador
+                    if (hitObject.CompareTag("BuildingPlayerHandler"))
                     {
-                        _currentFader.DoFade = false;
-                        _currentFader = null;
-                    }
-                }
-                else
-                {
-                    _currentFader = hit.collider.gameObject.GetComponent<ObjectFader>();
-                    if (_currentFader != null)
-                    {
-                        _currentFader.DoFade = true;
+                        continue;
                     }
 
-                    // Restore the previous fader if it's different from the current one
-                    if (_previousFader != null && _previousFader != _currentFader)
+                    ObjectFader fader = hitObject.GetComponent<ObjectFader>();
+
+                    if (fader != null)
                     {
-                        _previousFader.DoFade = false;
+                        fader.DoFade = true;
                     }
 
-                    // Update the previous fader to the current one
-                    _previousFader = _currentFader;
-                }
-            }
-            else
-            {
-                // No hit, restore the previous fader if exists
-                if (_currentFader != null)
-                {
-                    _currentFader.DoFade = false;
-                    _currentFader = null;
-                }
-
-                if (_previousFader != null)
-                {
-                    _previousFader.DoFade = false;
-                    _previousFader = null;
+                    // Visualizar el rayo
+                    Debug.DrawLine(start, hit.point, Color.red);
                 }
             }
         }

@@ -13,8 +13,8 @@ public class PlayerCombat : MonoBehaviour
     public float rotationSpeed = 20f;
     public float visionAngle = 120f;
     float attackSpeed = 3f;
-    float attackRange = 2f;
-    float maxAttackDistance = 0.1f; // Distancia máxima a la que puede acercarse el jugador al enemigo
+    float attackRange = 1f;
+    float maxAttackDistance = 0.05f; // Distancia máxima a la que puede acercarse el jugador al enemigo
 
     private Animator anim; // Referencia al Animator
     public bool isAttacking = false; // Flag para controlar si el jugador está atacando
@@ -134,14 +134,15 @@ public class PlayerCombat : MonoBehaviour
         // Verificar si se encontró un enemigo
         if (enemyHealth != null)
         {
-            // Verificar si ambos colliders de las manos del jugador están colisionando con el enemigo al mismo tiempo
-            if (manoIz.bounds.Intersects(enemyHealth.GetComponent<Collider>().bounds) || manoDe.bounds.Intersects(enemyHealth.GetComponent<Collider>().bounds))
+            // Verificar si el jugador está lo suficientemente cerca del enemigo
+            if (Vector3.Distance(transform.position, enemyHealth.transform.position) < attackRange)
             {
                 // Infligir daño al enemigo
                 enemyHealth.TakeDamage(damage);
             }
         }
     }
+
 
     // Método para establecer el daño
     public void SetDamage(int newDamage)
