@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -14,10 +15,37 @@ public class EnemyNavMesh : MonoBehaviour
     public float auditionRadius = 10f;
     public bool isChasing = false;
 
+    public Transform EnemyGroundChecker;
+    public float groundSphereRadius = 0.1f;
+    public LayerMask WhatIsWalkable;
+
+    public Transform closestCalle;
+
     private void Start()
     {
         TrackerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        closestCalle = FindClosestCalle();
     }
+
+    private Transform FindClosestCalle()
+    {
+        Transform closest = null;
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {            
+            if (obj.layer == LayerMask.NameToLayer("Calle"))
+            {
+                float distance = Vector3.Distance(transform.position, obj.transform.position);
+                if(distance < 5)
+                {
+                    closest = obj.transform;
+                    return closest;
+                }
+            }
+        }
+        return closest;
+    }
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -25,6 +53,11 @@ public class EnemyNavMesh : MonoBehaviour
 
     private void Update()
     {
+        if (!isInWalkable())
+        {
+            transform.position = closestCalle.position;
+        }
+
         float distanceToPlayer = Vector3.Distance(transform.position, TrackerTransform.position);
 
         if (distanceToPlayer <= sightRadius)
@@ -43,5 +76,10 @@ public class EnemyNavMesh : MonoBehaviour
             navMeshAgent.ResetPath();
         }
         
+    }
+
+    private bool isInWalkable()
+    {
+        return Physics.CheckSphere(EnemyGroundChecker.position, groundSphereRadius, WhatIsWalkable);
     }
 }
