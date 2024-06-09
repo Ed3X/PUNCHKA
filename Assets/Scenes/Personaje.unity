@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4358.9214, g: 3176.9263, b: 3530.5942, a: 1}
+  m_IndirectSpecularColor: {r: 4601.6724, g: 3251.7095, b: 3229.899, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1585,6 +1585,18 @@ MonoBehaviour:
   damageFlashTime: 0.2
   healthBar: {fileID: 0}
   isInvincible: 0
+  WhatIsHealing:
+    serializedVersion: 2
+    m_Bits: 0
+  GroundChecker: {fileID: 0}
+  groundSphereRadius: 0.5
+  drugBar: {fileID: 0}
+  Respawn: {fileID: 0}
+  hurt_Layout: {fileID: 0}
+  deathSong: {fileID: 0}
+  deathImage: {fileID: 0}
+  levelScript: {fileID: 0}
+  camara: {fileID: 0}
 --- !u!114 &1907978747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1600,8 +1612,15 @@ MonoBehaviour:
   speed: 10
   gravity: 9.81
   forceMultiplier: 1
+  dashDistance: 5
   dashCooldown: 1
+  dashDuration: 0.2
   rotationSpeed: 10
+  lateralSpeed: 0.1
+  isMoving: 0
+  dirtFootstepClips: []
+  asphaltFootstepClips: []
+  audioSource: {fileID: 0}
 --- !u!114 &1907978748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,9 +1827,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  originalColor: {r: 1, g: 1, b: 1, a: 0}
-  damageColor: {r: 1, g: 0, b: 0, a: 0}
-  damageFlashTime: 0.2
+  Sangre: {fileID: 0}
+  levelScript: {fileID: 0}
 --- !u!114 &1908692214
 MonoBehaviour:
   m_ObjectHideFlags: 0
