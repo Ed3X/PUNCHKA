@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class rPausa : MonoBehaviour
+public class Pausa : MonoBehaviour
 {
     public GameObject pausaPanel;
     public AudioClip pausa;
