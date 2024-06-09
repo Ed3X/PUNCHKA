@@ -18,6 +18,8 @@ public class LevelScript : MonoBehaviour
     public SpawnLocalizer spawnLocalizer;
     public CatchLoot catchLoot;
 
+    public GameObject Player;
+
     public TMP_Text CurrentLevelTextbox;
     public TMP_Text EnemiesToKillTextbox;
 
@@ -45,6 +47,9 @@ public class LevelScript : MonoBehaviour
 
     public void LevelPassed()
     {
+        Vector3 position = new Vector3(0f, 0f, 0f);
+        Player.transform.position = position;
+
         currentLevel++;
         currentEnemies = 1;
         CurrentLevel();
@@ -52,6 +57,8 @@ public class LevelScript : MonoBehaviour
         visualizer.CreateTown();
         DestroyAllEnemies();
         spawnLocalizer.LocalizeSpawnablePositions(EnemiesToBeSpawned());
+
+        
 
         CurrentLevelTextbox.text = $"Level: {currentLevel}";
         EnemiesToKillTextbox.text = $"{EnemiesToBeSpawned()-1}";

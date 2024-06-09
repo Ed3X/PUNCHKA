@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4541.934, g: 2945.2483, b: 2258.6252, a: 1}
+  m_IndirectSpecularColor: {r: 4132.109, g: 2509.1428, b: 1627.1819, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7479,6 +7479,7 @@ MonoBehaviour:
   visualizer: {fileID: 76756184}
   spawnLocalizer: {fileID: 713276561}
   catchLoot: {fileID: 687907891}
+  Player: {fileID: 1293916935}
   CurrentLevelTextbox: {fileID: 996108037}
   EnemiesToKillTextbox: {fileID: 1653004314}
   levelsClearedTextbox: {fileID: 540062245}

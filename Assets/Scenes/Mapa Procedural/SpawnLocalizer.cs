@@ -46,8 +46,6 @@ public class SpawnLocalizer : MonoBehaviour
                     {
                         if (!playerSpawnPlaced)
                         {
-                            Vector3 position = new Vector3(0f, 0f, 0f);
-                            spawnPlayerPrefab.transform.position = position; 
                             playerSpawnPlaced = true;
                             spawnCount--;
                         }
