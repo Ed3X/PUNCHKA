@@ -11,6 +11,9 @@ public class EnemyHealthSystem : MonoBehaviour
     private Animator animator;
     public GameObject Sangre;
 
+    public GameObject EnemyIndicator;
+    public Sprite DeadEnemySprite;
+
     // Evento para notificar cuando un enemigo es destruido
     public event Action OnEnemyDestroyed;
 
@@ -43,15 +46,6 @@ public class EnemyHealthSystem : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Verificar el daño simulado con la tecla 'I'
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            TakeDamage(20);
-        }
-    }
-
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -60,6 +54,7 @@ public class EnemyHealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {            
             Debug.Log("Enemy died.");
+            EnemyIndicator.GetComponent<SpriteRenderer>().sprite = DeadEnemySprite;
             levelScript.EnemyKillCounter();
             Dead();
         }
