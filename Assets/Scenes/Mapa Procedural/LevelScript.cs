@@ -38,6 +38,11 @@ public class LevelScript : MonoBehaviour
     public void Update()
     {
         elapsedTime = Time.time;
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            LevelPassed();
+        }
     }
 
     public int EnemiesToBeSpawned()
@@ -47,8 +52,11 @@ public class LevelScript : MonoBehaviour
 
     public void LevelPassed()
     {
-        Vector3 position = new Vector3(0f, 0f, 0f);
-        Player.transform.position = position;
+        if(Player != null)
+        {
+            Vector3 position = new Vector3(0f, 0f, 0f);
+            Player.transform.position = position;
+        }
 
         currentLevel++;
         currentEnemies = 1;
