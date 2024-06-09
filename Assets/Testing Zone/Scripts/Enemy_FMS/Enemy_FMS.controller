@@ -813,8 +813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196d23be58c3d684b9c39c59c6db5981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.1
-  attackCooldown: 1
+  attackRange: 0.05
+  attackCooldown: 2
   Damage: 10
   lastAttackTime: 0
   playerTag: Player

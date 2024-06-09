@@ -12,6 +12,8 @@ TagManager:
   - Dientes
   - Spawner
   - BuildingPlayerHandler
+  - Asfalto
+  - Tierra
   layers:
   - Default
   - TransparentFX
