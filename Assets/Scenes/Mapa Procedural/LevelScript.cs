@@ -38,11 +38,6 @@ public class LevelScript : MonoBehaviour
     public void Update()
     {
         elapsedTime = Time.time;
-
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            LevelPassed();
-        }
     }
 
     public int EnemiesToBeSpawned()
