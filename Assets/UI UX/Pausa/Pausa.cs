@@ -12,6 +12,7 @@ public class rPausa : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f; // Reanudar el tiempo del juego
         // Al iniciar el juego, ocultamos el panel de pausa
         pausaPanel.SetActive(false);
 

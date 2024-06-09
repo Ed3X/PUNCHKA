@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    private void Start()
+    {
+        Time.timeScale = 1f; // Reanudar el tiempo del juego
+    }
     // Lista de nombres de las escenas
     public string[] sceneNames;
 
