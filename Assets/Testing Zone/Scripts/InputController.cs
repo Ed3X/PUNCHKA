@@ -60,8 +60,7 @@ public class InputController : MonoBehaviour
     public bool isMoving = false;
     internal static object instance;
 
-    [SerializeField] private AudioClip[] dirtFootstepClips; // Array de sonidos de pasos en tierra
-    [SerializeField] private AudioClip[] asphaltFootstepClips; // Array de sonidos de pasos en asfalto
+    [SerializeField] private AudioClip asphaltFootstepClip; // Clip de sonido de pasos en asfalto
     [SerializeField] private AudioSource audioSource; // El componente AudioSource
 
     void Start()
@@ -103,7 +102,6 @@ public class InputController : MonoBehaviour
         PlayFootstepSound();
     }
 
-
     void MovePlayer()
     {
         // Verifica si el jugador está atacando
@@ -144,7 +142,6 @@ public class InputController : MonoBehaviour
         anim.SetFloat("VelX", moveDirection.x);
         anim.SetFloat("VelY", moveDirection.z);
     }
-
 
     IEnumerator Dash()
     {
@@ -198,95 +195,26 @@ public class InputController : MonoBehaviour
         // Verifica si el jugador se está moviendo
         if (isMoving)
         {
-            Debug.Log("Se mueve");
-            // Obtén la etiqueta de la superficie debajo del jugador
-            string surfaceTag = GetSurfaceTag();
-
-            // Reproduce el clip de pasos adecuado para la superficie
-            PlayFootstepForSurface(surfaceTag);
-        }
-        else
-        {
-            Debug.Log("No se mueve");
-            // Si el jugador no se está moviendo, detén la reproducción del audio de pasos
-            audioSource.Stop();
-        }
-    }
-
-    private string GetSurfaceTag()
-    {
-        // Realiza un raycast hacia abajo desde el jugador para detectar la superficie
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
-        {
-            Debug.Log(hit.collider.tag);
-            return hit.collider.tag;
-        }
-        else
-        {
-            return ""; // Devuelve una cadena vacía si no se detecta ninguna superficie
-        }
-    }
-
-    private void PlayFootstepForSurface(string surfaceTag)
-    {
-        // Verifica si ya se está reproduciendo un sonido de pasos
-        if (isFootstepPlaying)
-        {
-            return; // Si ya se está reproduciendo, salir del método para evitar la reproducción múltiple
-        }
-
-        // Seleccione el clip de pasos basado en la etiqueta de la superficie
-        AudioClip clipToPlay = null;
-        switch (surfaceTag)
-        {
-            case "Tierra":
-                Debug.Log("audio tierra");
-                if (dirtFootstepClips.Length > 0)
-                {
-                    clipToPlay = dirtFootstepClips[0]; // Obtén el único clip de pasos disponible para la tierra
-                }
-                break;
-            case "Asfalto":
-                Debug.Log("audio asfalto");
-                if (asphaltFootstepClips.Length > 0)
-                {
-                    clipToPlay = asphaltFootstepClips[0]; // Obtén el único clip de pasos disponible para el asfalto
-                }
-                break;
-            default:
-                Debug.LogWarning("Unknown surface type: " + surfaceTag);
-                break;
-        }
-
-        // Reproduce el clip de pasos si se encontró uno válido
-        if (clipToPlay != null)
-        {
-            // Verifica si el clip de pasos actual es diferente del nuevo clip
-            if (audioSource.clip != clipToPlay)
+            // Verifica si ya se está reproduciendo un sonido de pasos
+            if (!isFootstepPlaying)
             {
-                // Detiene la reproducción del clip actual
-                audioSource.Stop();
-                // Reproduce el nuevo clip
-                audioSource.clip = clipToPlay;
+                // Reproduce el sonido de pasos de asfalto
+                audioSource.clip = asphaltFootstepClip;
+                audioSource.loop = true; // Para que el sonido se repita mientras se mueve
                 audioSource.Play();
+                isFootstepPlaying = true;
             }
-
-            // Marca que se está reproduciendo un sonido de pasos
-            isFootstepPlaying = true;
-
         }
         else
         {
-            Debug.LogWarning("No footstep clip found for the surface: " + surfaceTag);
+            // Si el jugador no se está moviendo, detén la reproducción del audio de pasos
+            if (isFootstepPlaying)
+            {
+                audioSource.Stop();
+                isFootstepPlaying = false;
+            }
         }
     }
-
-
-
-
-
-
 
     void ApplyGravity()
     {
@@ -323,4 +251,3 @@ public class InputController : MonoBehaviour
         dashAction.Disable();
     }
 }
-

@@ -1,11 +1,19 @@
 using UnityEngine;
 using System;
 using UnityEngine.AI;
+using NUnit.Framework;
+using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
+using Cinemachine;
 
 public class EnemyHealthSystem : MonoBehaviour
 {
     public int maxHealth = 50;
     public int currentHealth;
+
+    [SerializeField] private List<AudioClip> puño;
+    private AudioSource audioSource;
     public bool IsDead { get; private set; }
 
     private Animator animator;
@@ -13,6 +21,10 @@ public class EnemyHealthSystem : MonoBehaviour
 
     public GameObject EnemyIndicator;
     public Sprite DeadEnemySprite;
+
+    public CinemachineVirtualCamera camara;
+    private float tambaleo1 = 0.25f;
+    private float tambaleo2 = 90f;
 
     // Evento para notificar cuando un enemigo es destruido
     public event Action OnEnemyDestroyed;
@@ -25,6 +37,8 @@ public class EnemyHealthSystem : MonoBehaviour
         animator = GetComponent<Animator>();
         GetComponent<EnemyNavMesh>().enabled = true;
         GetComponent<NavMeshAgent>().enabled = true;
+        audioSource = GetComponent<AudioSource>();
+        camara = GetComponent<CinemachineVirtualCamera>();
 
         BoxCollider boxCollider = GetComponent<BoxCollider>();
         if (boxCollider != null)
@@ -46,13 +60,31 @@ public class EnemyHealthSystem : MonoBehaviour
         }
     }
 
+    IEnumerator Tambaleo()
+    {
+        var noise = camara.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (noise != null)
+        {
+            noise.m_FrequencyGain = tambaleo2;
+            yield return new WaitForSeconds(0.5f);
+            noise.m_FrequencyGain = tambaleo1;
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         animator.SetTrigger("Stuned");
         Debug.Log("Infligiendo daño al enemigo.");
+
+        // Generar un índice aleatorio para seleccionar un clip de audio
+        int randomIndex = UnityEngine.Random.Range(0, puño.Count);
+        audioSource.PlayOneShot(puño[randomIndex]);
+
+        StartCoroutine(Tambaleo());
+
         if (currentHealth <= 0)
-        {            
+        {
             Debug.Log("Enemy died.");
             EnemyIndicator.GetComponent<SpriteRenderer>().sprite = DeadEnemySprite;
             levelScript.EnemyKillCounter();
@@ -82,13 +114,8 @@ public class EnemyHealthSystem : MonoBehaviour
         }
     }
 
-
-
-
     private void Dead()
     {
-        
-
         IsDead = true;
         // Llamar al evento OnEnemyDestroyed
         OnEnemyDestroyed?.Invoke();
@@ -137,22 +164,10 @@ public class EnemyHealthSystem : MonoBehaviour
 
             // Activar la sangre
             sangreInstance.SetActive(true);
-
         }
         else
         {
             Debug.LogWarning("Animator not found!");
         }
     }
-
-    //private void DestroyRecursive(GameObject obj)
-    //{
-    //    foreach (Transform child in obj.transform)
-    //    {
-    //        DestroyRecursive(child.gameObject);
-    //    }
-    //    // Programar la destrucción del objeto después de 2 segundos
-    //    Destroy(obj, 2f);
-    //}
-
 }
